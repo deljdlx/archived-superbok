@@ -1,0 +1,19 @@
+{
+	"name": "pmd/capital",
+	"description": "Capital : Actualités économiques",
+	"repositories": [],
+	"require":
+	{
+		"cocur/slugify": "1.*"
+	},
+	"require-dev": {
+	},
+	"config": {
+		"process-timeout": 600
+	},
+	"autoload": {
+		"files": [
+			"kernel/helper/string.php"
+		]
+	}
+}

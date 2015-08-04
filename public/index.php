@@ -1,3 +1,8 @@
+<?php
+include('../bootstrap.php');
+?>
+
+
 <!doctype html>
 <!--
   Material Design Lite

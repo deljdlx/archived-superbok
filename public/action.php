@@ -8,11 +8,7 @@
 function getChildren($nodeId) {
 
 
-	//$db=new mysqli('192.168.1.64', 'root', '514ever', 'cap');
-	$db=new mysqli('192.168.180.142', 'root', 'root', 'cap');
-
-
-
+	$db=new mysqli('192.168.1.64', 'root', '514ever', 'cap');
 	$db->set_charset('utf8');
 	
 	$query="

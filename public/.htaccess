@@ -1,0 +1,9 @@
+RewriteEngine On
+
+
+
+RewriteCond %{REQUEST_URI} 	!^.*/(asset|vendor)/.*
+RewriteCond	%{REQUEST_URI}	!^.*/(index\.php)$
+
+
+RewriteRule ^.*$	index.php?%{QUERY_STRING}
