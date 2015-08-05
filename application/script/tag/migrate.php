@@ -109,8 +109,14 @@ $tagTree=new \PMD\Capital\Model\Tag();
 $tagTree->setSource($newModel);
 $tagTree->buildTree();
 
-
 $newModel->commit();
+
+
+
+
+
+
+
 
 
 

@@ -1,72 +1,58 @@
 <?php
+include('../bootstrap.php');
 
 
 
+$tree=new \PMD\Capital\Model\Tag('new');
 
 
+if((int) $_GET['nodeId']) {
+    $tree->loadById($_GET['nodeId']);
 
-function getChildren($nodeId) {
-
-
-	$db=new mysqli('192.168.1.64', 'root', '514ever', 'cap');
-	$db->set_charset('utf8');
-	
-	$query="
-		SELECT * FROM pmd_content_node
-		WHERE parent_id=".$nodeId."
-		ORDER BY rank, caption;
-	";
-
-	$s=$db->query($query);
-
-	$rows=array();
-	while($row=$s->fetch_assoc()) {
-		$rows[]=$row;
-	}
-	
-	
-	$children=array();
-	foreach($rows as $row) {
-	
-		if(($row['rightbound']-$row['leftbound'])>1) {
-			$childrenExists=true;
-		}
-		else {
-			$childrenExists=false;
-		}
-	
-		$children[]=array(
-			'id'=>$row['id'],
-			'text'=>''.$row['caption'],
-			'children'=>$childrenExists,
-            'something'=>'test'
-		);
-	}
-	
-	return $children;
-}
-
-
-if($_GET['nodeId']=='#') {
-	
-	$children=array(
-		'id'=>0,
-		'text'=>'Racine',
-		'children'=>getChildren(0),
-		'state'=> array(
-			'opened'=> true
-		)
-	);
 }
 else {
-	$children=getChildren($_GET['nodeId']);
+    $tree=$tree->getRoot();
 }
 
+$children=$tree->getChildren();
 
 
 
-echo json_encode($children);
+$nodes=array();
+
+foreach ($children as $child) {
+
+    $childrenExists=$child->childrenExists();
+
+    if(!empty($childrenExists)) {
+        $icon='fa fa-tags';
+    }
+    else {
+        $icon='fa fa-tag';
+    }
 
 
+    if(!$child->getValue('mastertag_id')) {
 
-?>
+        $type=$child->getType();
+        $icon='fa tag-'.$type->getValue('caption');
+
+
+        $nodes[strtolower($child->getValue('slug'))]=array(
+            'id'=>$child->getId(),
+            'text'=>''.$child->getValue('caption'),
+            'children'=>$childrenExists,
+            'something'=>'test',
+            'icon'=>$icon
+        );
+    }
+
+
+}
+
+ksort($nodes);
+
+
+$nodes=array_values($nodes);
+
+echo json_encode($nodes);

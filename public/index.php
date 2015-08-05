@@ -177,6 +177,39 @@ include('../bootstrap.php');
 
 
 
+    <style>
+
+       .jstree-icon.tag-category:before {
+           content: "\f07b";
+       }
+       .jstree-icon.tag-company:before {
+           content: "\f275";
+       }
+       .jstree-icon.tag-person:before {
+           content: "\f007 ";
+       }
+       .jstree-icon.tag-content:before {
+           content: "\f02b  ";
+       }
+
+
+       main {
+           height: calc(100% - 80px);
+       }
+
+       .mdl-grid.demo-content {
+           position: relative;
+           /*background-color:#F00;*/
+           height: 100%;
+       }
+
+        .demo-graphs {
+            height:calc(100% - 20px);
+            /*height: 100% !important;*/
+            overflow: auto;
+        }
+
+    </style>
 
 
 
@@ -240,7 +273,7 @@ include('../bootstrap.php');
 
             <hr/>
 
-            <a class="mdl-navigation__link" href=""><i class="fa fa-2x fa-fw fa-users"></i> Tags</a>
+            <a class="mdl-navigation__link" href=""><i class="fa fa-2x fa-fw fa-users"></i> Utilisateurs</a>
 
 
 
@@ -264,12 +297,13 @@ include('../bootstrap.php');
         <div class="mdl-grid demo-content">
 
 
-
+<!--
 
             <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
                 main-top
             </div>
 
+//-->
 
 
 
@@ -277,19 +311,14 @@ include('../bootstrap.php');
 
 
 
-
-            <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--4-col">
-
-
-                <div style="border: none; " id='tree'></div>
-
-
-            </div>
+                <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--4-col  mdl-cell--4-col-tablet">
+                    <div style="border: none; " id='tree'></div>
+                </div>
 
 
 
 
-            <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
+            <div class="demo-cards mdl-cell mdl-cell--8-col mdl-cell--4-col-tablet mdl-grid mdl-grid--no-spacing">
 
 
                 <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
@@ -304,8 +333,10 @@ include('../bootstrap.php');
                     </div>
                 </div>
 
-
                 <div class="demo-separator mdl-cell--1-col"></div>
+
+
+
 
 
                 <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
@@ -369,11 +400,11 @@ include('../bootstrap.php');
             </div>
 
 
-
+<!--
             <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
                 main-bottom
             </div>
-
+//-->
 
         </div>
 

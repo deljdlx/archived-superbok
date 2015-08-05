@@ -9,6 +9,8 @@ class Tag extends DatabaseElement
     use Tree;
 
 
+    protected $type=null;
+
     protected $values=array(
         'id'=>null,
         'parent_id'=>null,
@@ -20,6 +22,26 @@ class Tag extends DatabaseElement
         'datecreation'=>null,
         'datemodification'=>null,
     );
+
+
+
+    public function getType() {
+        if($this->type!==null) {
+            return $this->type;
+        }
+        else {
+            $this->type=new TagType($this->getSource());
+            $this->type->loadById($this->getValue('type_id'));
+            return $this->type;
+        }
+    }
+
+
+
+
+
+
+
 
 
     public static function getTableName() {

@@ -106,6 +106,25 @@ $tagDataSource->query($query);
 
 
 
+echo "Create Category tag type\n";
+$rootTagId=$tagDataSource->getLastInsertId();
+
+$query="
+  INSERT INTO pmd_tagtype (
+    parent_id,
+    caption,
+    datecreation
+  ) VALUES (
+    ".$rootTagId.",
+    'category',
+    NOW()
+  )
+";
+$tagDataSource->query($query);
+
+
+
+
 echo "Create Content tag type\n";
 $parentId=$tagDataSource->getLastInsertId();
 
@@ -115,7 +134,7 @@ $query="
     caption,
     datecreation
   ) VALUES (
-    ".$parentId.",
+    ".$rootTagId.",
     'content',
     NOW()
   )
@@ -125,6 +144,23 @@ $tagDataSource->query($query);
 
 
 echo "Create Company tag type\n";
+$contentTagId=$tagDataSource->getLastInsertId();
+
+$query="
+  INSERT INTO pmd_tagtype (
+    parent_id,
+    caption,
+    datecreation
+  ) VALUES (
+    ".$contentTagId.",
+    'company',
+    NOW()
+  )
+";
+$tagDataSource->query($query);
+
+
+echo "Create Person tag type\n";
 $parentId=$tagDataSource->getLastInsertId();
 
 $query="
@@ -133,8 +169,8 @@ $query="
     caption,
     datecreation
   ) VALUES (
-    ".$parentId.",
-    'company',
+    ".$contentTagId.",
+    'person',
     NOW()
   )
 ";

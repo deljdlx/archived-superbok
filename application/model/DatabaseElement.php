@@ -1,5 +1,6 @@
 <?php
 namespace PMD\Capital\Model;
+use vakata\database\Exception;
 
 
 /**
@@ -24,6 +25,14 @@ abstract class  DatabaseElement
     abstract public static function getTableName();
 
 
+    public function __construct($dataSource=null) {
+        if($dataSource) {
+            $this->setSource($dataSource);
+        }
+    }
+
+
+
     public static function getPrimaryKeyFieldName() {
         return 'id';
     }
@@ -42,6 +51,9 @@ abstract class  DatabaseElement
     public function getGetPrimaryKeyValue() {
         return $this->values[static::getPrimaryKeyFieldName()];
     }
+
+
+
 
 
 
@@ -70,6 +82,11 @@ abstract class  DatabaseElement
         return $this;
     }
 
+
+    public function loadValues($values) {
+        $this->values=$values;
+        return $this;
+    }
 
 
 
@@ -153,12 +170,20 @@ abstract class  DatabaseElement
 
 
 
-
+    public function getSource() {
+        if(!$this->source) {
+            $this->source=$this->getDefaultSource();
+        }
+        return $this->source;
+    }
 
 
 
 
     public function setSource($source) {
+        if(is_string($source)) {
+            $source=\PMD\Capital\Configuration\DataSource::get($source);
+        }
         $this->source=$source;
     }
 
@@ -166,6 +191,26 @@ abstract class  DatabaseElement
         return \PMD\Capital\Configuration\DataSource::get('default');
     }
 
+
+
+    public function getValue($name, $default=false) {
+        if(isset($this->values[$name])) {
+            return $this->values[$name];
+        }
+        else {
+            return $default;
+        }
+    }
+
+    public function setValue($name, $value, $force=false) {
+        if(array_key_exists($name, $this->values) || $force) {
+            $this->values[$name]=$value;
+            return $this;
+        }
+        else {
+            return false;
+        }
+    }
 
 
 
