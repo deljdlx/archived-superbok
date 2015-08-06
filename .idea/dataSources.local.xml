@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - newcap@192.168.180.142" uuid="8b1c978e-f19a-4cc2-8fe6-c58bb0806491">
+      <user-name>root</user-name>
+      <user-password>dfd8dfc5dfc5dfde</user-password>
+    </data-source>
+    <data-source name="MySQL - newcap@192.168.1.64" uuid="a7df3c4d-c3e4-4a11-b699-ebe0bb46bfec">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>newcap.*</schema-pattern>
+      <default-schemas>newcap.*</default-schemas>
+    </data-source>
+  </component>
+</project>
+

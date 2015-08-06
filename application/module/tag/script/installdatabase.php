@@ -238,8 +238,6 @@ $tagDataSource->query($query);
 
 
 echo "Create Category tag type\n";
-$rootTagId=$tagDataSource->getLastInsertId();
-
 $query="
   INSERT INTO ".\PMD\Capital\Model\TagType::getTableName()." (
     parent_id,
@@ -257,8 +255,6 @@ $tagDataSource->query($query);
 
 
 echo "Create Content tag type\n";
-$parentId=$tagDataSource->getLastInsertId();
-
 $query="
   INSERT INTO ".\PMD\Capital\Model\TagType::getTableName()." (
     parent_id,

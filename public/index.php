@@ -45,14 +45,16 @@ include('../bootstrap.php');
 
 
 
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
     <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="vendor/mdl/material.min.css">
-    <script src="vendor/mdl/material.min.js"></script>
-    <link rel="stylesheet" href="asset/css/material.css">
+
+
+        <link rel="stylesheet" href="vendor/mdl/material.min.css">
+        <script src="vendor/mdl/material.min.js"></script>
+        <link rel="stylesheet" href="asset/css/material.css">
 
 
 
@@ -66,11 +68,23 @@ include('../bootstrap.php');
 
 
 
+    <link rel="stylesheet" href="vendor/codemirror/lib/codemirror.css"/>
+    <script src="vendor/codemirror/lib/codemirror.js"></script>
 
+    <script src="vendor/codemirror/mode/javascript/javascript.js"></script>
+
+
+
+
+
+    <script src="application/module/tag/TagTypeManager.js"></script>
 
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+
+            TagTypeManager.initialize();
 
 
             /*
@@ -116,61 +130,6 @@ include('../bootstrap.php');
 
 
 
-
-
-
-
-
-
-
-            $('#tree').jstree({
-                'core' : {
-
-                    'check_callback' : function(o, n, p, i, m) {
-                        /*
-                         if(m && m.dnd && m.pos !== 'i') { return false; }
-                         if(o === "move_node" || o === "copy_node") {
-                         if(this.get_node(n).parent === this.get_node(p).id) { return false; }
-                         }
-                         */
-
-                        //prevent all modifications
-
-                        return true;
-                    },
-                    'data' : {
-                        "success":function(data) {
-                            console.debug(data)
-                        },
-
-                        "url" : function (node) {
-                            return 'action.php?action=getChildren';
-                        },
-                        "dataType" : "json", // needed only if you do not supply JSON headers
-
-                        "data" : function (node) {
-                            return { "nodeId" : node.id };
-                        }
-                    }
-                },
-                "plugins" : [ "dnd", "contextmenu", "foo"]
-            });
-            $('#tree').on("move_node.jstree", function (e, data) {
-                console.debug(data.node.original);
-                console.debug(data.node.id);
-                console.debug(data.parent);
-                $('#tree').jstree().open_node(data.parent);
-
-            });
-            $(document).on('dnd_stop.vakata', function(event, data) {
-            });
-
-
-
-
-
-
-
         });
     </script>
 
@@ -191,6 +150,28 @@ include('../bootstrap.php');
        .jstree-icon.tag-content:before {
            content: "\f02b  ";
        }
+
+
+       .jstree-contextmenu {
+           z-index:1000;
+       }
+
+
+
+
+
+       .mdl-card__supporting-text {
+           width:100%;
+           box-sizing: border-box;
+           height: 450px;
+       }
+
+       .CodeMirror {
+           width:100%;
+           height: 100%;
+       }
+
+
 
 
        main {
@@ -283,27 +264,43 @@ include('../bootstrap.php');
             <div class="mdl-layout-spacer"></div>
             <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
         </nav>
-
-
-
-
-
-
     </div>
 
 
 
     <main class="mdl-layout__content mdl-color--grey-100">
-        <div class="mdl-grid demo-content">
 
 
-<!--
 
-            <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-                main-top
+
+
+
+
+
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+            <div class="mdl-tabs__tab-bar">
+                <a href="#starks-panel" class="mdl-tabs__tab is-active">Gestion des types</a>
+                <a href="#lannisters-panel" class="mdl-tabs__tab">Gestion des tags</a>
+                <a href="#targaryens-panel" class="mdl-tabs__tab">Targaryens</a>
             </div>
 
-//-->
+            <div class="mdl-tabs__panel is-active" id="starks-panel">
+
+
+
+
+
+
+                <div class="mdl-grid demo-content">
+
+
+                    <!--
+
+                                <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+                                    main-top
+                                </div>
+
+                    //-->
 
 
 
@@ -311,102 +308,98 @@ include('../bootstrap.php');
 
 
 
-                <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--4-col  mdl-cell--4-col-tablet">
-                    <div style="border: none; " id='tree'></div>
+                    <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--4-col  mdl-cell--4-col-tablet">
+                        <div style="border: none; " id='tree'></div>
+                    </div>
+
+
+
+
+                    <div class="demo-cards mdl-cell mdl-cell--8-col mdl-cell--4-col-tablet mdl-grid mdl-grid--no-spacing">
+
+
+                        <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+
+
+                            <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
+                                hello world
+                            </div>
+                            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+                                <textarea id="codeEditor">{
+    "attributes": [
+        "image": {
+            "mandatory":false,
+      		"type": "text",
+      		"default":null
+        },
+      	"title": {
+            "mandatory":false,
+      		"type": "text",
+      		"default":null
+      	},
+      	"description": {
+            "mandatory":false,
+      		"type": "text",
+      		"default":null
+      	}
+    ]
+}</textarea>
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect">Read More</a>
+                            </div>
+                        </div>
+                        <div class="demo-separator mdl-cell--1-col"></div>
+                    </div>
+
+
+                    <!--
+                                <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+                                    main-bottom
+                                </div>
+                    //-->
+
                 </div>
 
 
 
 
-            <div class="demo-cards mdl-cell mdl-cell--8-col mdl-cell--4-col-tablet mdl-grid mdl-grid--no-spacing">
-
-
-                <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
-                    <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
-                        <h2 class="mdl-card__title-text">Updates</h2>
-                    </div>
-                    <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                        Non dolore elit adipisicing ea reprehenderit consectetur culpa.
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect">Read More</a>
-                    </div>
-                </div>
-
-                <div class="demo-separator mdl-cell--1-col"></div>
 
 
 
 
 
-                <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
-                    <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
-                        <h2 class="mdl-card__title-text">Updates</h2>
-                    </div>
-                    <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                        Non dolore elit adipisicing ea reprehenderit consectetur culpa.
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect">Read More</a>
-                    </div>
-                </div>
-
-
-
-
-
-
-                <div class="demo-separator mdl-cell--1-col"></div>
-
-
-
-                <div class="demo-options mdl-card mdl-color--deep-purple-500 mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop">
-                    <div class="mdl-card__supporting-text mdl-color-text--blue-grey-50">
-                        <h3>View options</h3>
-                        <ul>
-                            <li>
-                                <label for="chkbox1" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                                    <input type="checkbox" id="chkbox1" class="mdl-checkbox__input" />
-                                    <span class="mdl-checkbox__label">Click per object</span>
-                                </label>
-                            </li>
-                            <li>
-                                <label for="chkbox2" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                                    <input type="checkbox" id="chkbox2" class="mdl-checkbox__input" />
-                                    <span class="mdl-checkbox__label">Views per object</span>
-                                </label>
-                            </li>
-                            <li>
-                                <label for="chkbox3" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                                    <input type="checkbox" id="chkbox3" class="mdl-checkbox__input" />
-                                    <span class="mdl-checkbox__label">Objects selected</span>
-                                </label>
-                            </li>
-                            <li>
-                                <label for="chkbox4" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                                    <input type="checkbox" id="chkbox4" class="mdl-checkbox__input" />
-                                    <span class="mdl-checkbox__label">Objects viewed</span>
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-50">Change location</a>
-                        <div class="mdl-layout-spacer"></div>
-                        <i class="material-icons">location_on</i>
-                    </div>
-                </div>
 
             </div>
-
-
-<!--
-            <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-                main-bottom
+            <div class="mdl-tabs__panel" id="lannisters-panel">
+                <ul>
+                    <li>Tywin</li>
+                    <li>Cersei</li>
+                    <li>Jamie</li>
+                    <li>Tyrion</li>
+                </ul>
             </div>
-//-->
-
+            <div class="mdl-tabs__panel" id="targaryens-panel">
+                <ul>
+                    <li>Viserys</li>
+                    <li>Daenerys</li>
+                </ul>
+            </div>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

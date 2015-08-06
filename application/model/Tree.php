@@ -11,6 +11,7 @@ Trait Tree
 
     abstract public static function getTableName();
     abstract public static function getSource();
+    abstract public function getValue($name, $default=false);
     abstract public function setValues($values);
 
     public static  function getPrimaryKeyFieldName() {
@@ -62,21 +63,12 @@ Trait Tree
             return true;
         }
 
-        $query="
-            SELECT * FROM ".static::getTableName()."
-            WHERE ".$this->escape($this->getParentIdFieldName())."=".$this->escape($this->values[$this->getPrimaryKeyFieldName()])."
-            LIMIT 1;
-        ";
 
-
-        $rows=$this->queryAndFetchOne($query);
-
-
-        if(!empty($rows)) {
-            $this->childrenExist=true;
+        if(($this->getValue($this->getRightBoundFieldName())-$this->getValue($this->getLeftBoundFieldName()))==1) {
+            $this->childrenExist=false;
         }
         else {
-            $this->childrenExist=false;
+            $this->childrenExist=true;
         }
 
         return $this->childrenExist;

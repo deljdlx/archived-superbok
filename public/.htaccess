@@ -2,7 +2,7 @@ RewriteEngine On
 
 
 
-RewriteCond %{REQUEST_URI} 	!^.*/(asset|vendor)/.*
+RewriteCond %{REQUEST_URI} 	!^.*/(asset|vendor|application)/.*
 RewriteCond	%{REQUEST_URI}	!^.*/(index\.php)$
 RewriteCond	%{REQUEST_URI}	!^.*/(action\.php)$
 
