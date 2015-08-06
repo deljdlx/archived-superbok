@@ -281,7 +281,7 @@ include('../bootstrap.php');
             <div class="mdl-tabs__tab-bar">
                 <a href="#starks-panel" class="mdl-tabs__tab is-active">Gestion des types</a>
                 <a href="#lannisters-panel" class="mdl-tabs__tab">Gestion des tags</a>
-                <a href="#targaryens-panel" class="mdl-tabs__tab">Targaryens</a>
+                <a href="#targaryens-panel" class="mdl-tabs__tab">Gestion des associations</a>
             </div>
 
             <div class="mdl-tabs__panel is-active" id="starks-panel">
