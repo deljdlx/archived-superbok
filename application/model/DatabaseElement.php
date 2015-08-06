@@ -70,11 +70,18 @@ abstract class  DatabaseElement
 
 
     public function loadById($id) {
-
-        $query="SELECT * FROM ".static::getTableName()." WHERE ".static::getPrimaryKeyFieldName()."=".$this->escape($id);
+        $query="SELECT * FROM ".static::getTableName()." WHERE ".static::getPrimaryKeyFieldName()."='".$this->escape($id)."'";
         $this->values=$this->queryAndFetchOne($query);
         return $this;
     }
+
+    public function loadBy($fieldName, $value) {
+        $query="SELECT * FROM ".static::getTableName()." WHERE `".$fieldName."`='".$this->escape($value)."'";
+        $this->values=$this->queryAndFetchOne($query);
+        return $this;
+    }
+
+
 
 
     public function updateModificationTimeStamp($enable) {
@@ -83,9 +90,14 @@ abstract class  DatabaseElement
     }
 
 
-    public function loadValues($values) {
+    public function setValues($values) {
         $this->values=$values;
         return $this;
+    }
+
+
+    public function getValues() {
+        return $this->values;
     }
 
 

@@ -1,6 +1,15 @@
 <?php
-
 chdir(__DIR__);
+
+
+
+date_default_timezone_set('Europe/Paris');
+
+
+
+
+
+
 
 function normalizeFilepath($filepath) {
     return str_replace('\\', '/', (string) $filepath);

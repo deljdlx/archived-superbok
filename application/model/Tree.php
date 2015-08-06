@@ -11,7 +11,7 @@ Trait Tree
 
     abstract public static function getTableName();
     abstract public static function getSource();
-    abstract public function loadValues($values);
+    abstract public function setValues($values);
 
     public static  function getPrimaryKeyFieldName() {
         return 'id';
@@ -36,7 +36,7 @@ Trait Tree
         $query="SELECT * FROM ".static::getTableName()." WHERE ".$this->getParentIdFieldName()."=0 OR ".$this->getParentIdFieldName()." IS NULL";
         $data=$this->queryAndFetchOne($query);
         $instance=new static($this->getSource());
-        $instance->loadValues($data);
+        $instance->setValues($data);
         return $instance;
     }
 
@@ -119,7 +119,7 @@ Trait Tree
         $nodes=array();
         foreach ($rows as $row) {
             $node=new Static($this->getSource());
-            $node->loadValues($row);
+            $node->setValues($row);
             $nodes[$row[$this->getPrimaryKeyFieldName()]]=$node;
         }
 

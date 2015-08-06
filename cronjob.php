@@ -5,10 +5,11 @@ chdir(__DIR__);
 include(__DIR__.'/bootstrap.php');
 
 
-echo 'application/script/'.$argv[1]."\n";
 
-if(is_file('application/script/'.$argv[1])) {
-    return include('application/script/'.$argv[1]);
+
+if(is_file('application/'.$argv[1])) {
+    echo 'Start script application/'.$argv[1]."\n";
+    return include('application/'.$argv[1]);
 
 }
 else {
