@@ -74,17 +74,33 @@ include('../bootstrap.php');
     <script src="vendor/codemirror/mode/javascript/javascript.js"></script>
 
 
+    <script src="application/application.js"></script>
 
 
 
-    <script src="application/module/tag/TagTypeManager.js"></script>
+
+    <script>
+
+
+
+
+
+
+
+    </script>
+
+
+
 
 
     <script type="text/javascript">
         $(document).ready(function () {
 
 
-            TagTypeManager.initialize();
+            var backoffice=new Application();
+            backoffice.start();
+            //backoffice.loadModule('tag');
+            //TagTypeManager.initialize();
 
 
             /*
@@ -268,131 +284,7 @@ include('../bootstrap.php');
 
 
 
-    <main class="mdl-layout__content mdl-color--grey-100">
-
-
-
-
-
-
-
-
-        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-            <div class="mdl-tabs__tab-bar">
-                <a href="#starks-panel" class="mdl-tabs__tab is-active">Gestion des types</a>
-                <a href="#lannisters-panel" class="mdl-tabs__tab">Gestion des tags</a>
-                <a href="#targaryens-panel" class="mdl-tabs__tab">Gestion des associations</a>
-            </div>
-
-            <div class="mdl-tabs__panel is-active" id="starks-panel">
-
-
-
-
-
-
-                <div class="mdl-grid demo-content">
-
-
-                    <!--
-
-                                <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-                                    main-top
-                                </div>
-
-                    //-->
-
-
-
-
-
-
-
-                    <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--4-col  mdl-cell--4-col-tablet">
-                        <div style="border: none; " id='tree'></div>
-                    </div>
-
-
-
-
-                    <div class="demo-cards mdl-cell mdl-cell--8-col mdl-cell--4-col-tablet mdl-grid mdl-grid--no-spacing">
-
-
-                        <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
-
-
-                            <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
-                                hello world
-                            </div>
-                            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                                <textarea id="codeEditor">{
-    "attributes": [
-        "image": {
-            "mandatory":false,
-      		"type": "text",
-      		"default":null
-        },
-      	"title": {
-            "mandatory":false,
-      		"type": "text",
-      		"default":null
-      	},
-      	"description": {
-            "mandatory":false,
-      		"type": "text",
-      		"default":null
-      	}
-    ]
-}</textarea>
-                            </div>
-                            <div class="mdl-card__actions mdl-card--border">
-                                <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect">Read More</a>
-                            </div>
-                        </div>
-                        <div class="demo-separator mdl-cell--1-col"></div>
-                    </div>
-
-
-                    <!--
-                                <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-                                    main-bottom
-                                </div>
-                    //-->
-
-                </div>
-
-
-
-
-
-
-
-
-
-
-            </div>
-            <div class="mdl-tabs__panel" id="lannisters-panel">
-                <ul>
-                    <li>Tywin</li>
-                    <li>Cersei</li>
-                    <li>Jamie</li>
-                    <li>Tyrion</li>
-                </ul>
-            </div>
-            <div class="mdl-tabs__panel" id="targaryens-panel">
-                <ul>
-                    <li>Viserys</li>
-                    <li>Daenerys</li>
-                </ul>
-            </div>
-        </div>
-
-
-
-
-
-
-
+    <main class="mdl-layout__content mdl-color--grey-100 mainPanel">
 
 
 

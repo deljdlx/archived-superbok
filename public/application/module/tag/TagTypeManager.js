@@ -1,8 +1,15 @@
+Application.modules['Tag']={};
+
 TagTypeManager={
-	treeNode:'#tree',
+	treeNodeSelector:'#tree',
+	captionNodeSelector:'.tagTypeCaption',
 	initialize:function() {
 		TagTypeManager.initializeTree();
 		TagTypeManager.initializeEditor();
+	},
+
+	foobar:function() {
+		alert(1);
 	},
 
 
@@ -55,7 +62,7 @@ TagTypeManager={
 
 		TagTypeManager.initializeTreeOptions();
 
-		TagTypeManager.tree=$(TagTypeManager.treeNode).jstree({
+		TagTypeManager.tree=$(TagTypeManager.treeNodeSelector).jstree({
 			'core' : {
 
 				'check_callback' : function(o, n, p, i, m) {
@@ -89,12 +96,7 @@ TagTypeManager={
 		});
 
 		TagTypeManager.tree.on("select_node.jstree", function (e, data) {
-			if(data.node.data) {
-				TagTypeManager.editor.setValue(data.node.data);
-			}
-			else {
-				TagTypeManager.editor.setValue("{\n\t"+'"attributes": []'+"\n}");
-			}
+			TagTypeManager.displayNodeData(data.node);
 		});
 
 		/*
@@ -109,12 +111,18 @@ TagTypeManager={
 		 });
 
 		 */
+	},
+
+	displayNodeData: function(node) {
+
+		$(TagTypeManager.captionNodeSelector).html('Type de tag : '+node.text);
+		if(node.data) {
+			TagTypeManager.editor.setValue(node.data);
+		}
+		else {
+			TagTypeManager.editor.setValue("");
+		}
 	}
-
-
-
-
-
-
-
 };
+
+Application.modules['Tag']['TagTypeManager']=TagTypeManager;

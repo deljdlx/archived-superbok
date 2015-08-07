@@ -38,9 +38,10 @@ $query="
 $tagDataSource->query($query);
 
 
-echo "Construction de l'arbre des types\n";
+echo "Construction de l'arbre des types d'objet\n";
 $tree=new ObjectType();
 $tree->setSource($tagDataSource);
+$tree->reset();
 $tree->buildTree();
 
 

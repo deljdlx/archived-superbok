@@ -1,10 +1,11 @@
 <?php
-use \PMD\Capital\Configuration\DataSource;
-use \PMD\Capital\Configuration\ObjectType;
-
-
+use PMD\Capital\Configuration\DataSource;
 use PMD\Capital\Module\Tag\Model\Tag;
+use PMD\Capital\Model\ObjectType;
+use PMD\Capital\Module\Tag\Model\Type;
 use PMD\Capital\Module\Tag\Model\Association;
+use PMD\Capital\Module\Tag\Model\AssociationType;
+
 
 
 ini_set('memory_limit', '-1');

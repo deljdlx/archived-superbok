@@ -9,9 +9,14 @@ Trait Tree
     protected $children=null;
     protected $childrenExist=null;
 
+    protected $parents=null;
+
+
     abstract public static function getTableName();
     abstract public static function getSource();
 
+    abstract public function queryAndFetch($query);
+    abstract public function escape($value);
     abstract public function autocommit($value=null);
     abstract public function commit();
     abstract public function getValue($name, $default=false);
@@ -82,8 +87,6 @@ Trait Tree
 
 
         $fieldNames=array_keys($this->values);
-
-
         $selectedFields=array();
         foreach ($fieldNames as $name) {
             $selectedFields[]='node.'.$name;
@@ -137,6 +140,45 @@ Trait Tree
 
 
 
+    public function getParents() {
+        if($this->parents===null) {
+            $this->parents=array();
+            $this->loadParents();
+        }
+        return $this->parents;
+    }
+
+
+    public function loadParents() {
+
+        $fieldNames=array_keys($this->values);
+        $selectedFields=array();
+        foreach ($fieldNames as $name) {
+            $selectedFields[]='node.'.$name;
+        }
+
+        $query = "
+            SELECT
+              " . implode(',', $selectedFields) . "
+            FROM " . static::getTableName() . " root
+                JOIN " . static::getTableName() . " node
+                    ON root." . $this->getLeftBoundFieldName() . ">node." . $this->getLeftBoundFieldName() . "
+                    AND root." . $this->getRightBoundFieldName() . "<node." . $this->getRightBoundFieldName() . "
+                WHERE root." . $this->getPrimaryKeyFieldName() . "=" . $this->values[$this->getPrimaryKeyFieldName()] . "
+                ORDER BY ".$this->getLeftBoundFieldName()." DESC
+        ";
+
+        $rows=$this->queryAndFetch($query);
+
+        foreach ($rows as $values) {
+            $node=new Static($this->getSource());
+            $node->setValues($values);
+            $this->parents[]=$node;
+        }
+        return $this;
+    }
+
+
 
 
     public function reset() {
@@ -149,7 +191,11 @@ Trait Tree
         $this->query($query);
     }
 
-    public function buildTree($idNode=1) {
+    public function buildTree($idNode=1, $reset=false) {
+
+        if($reset) {
+            $this->reset();
+        }
 
         $autocommitState=$this->autocommit();
 

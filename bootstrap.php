@@ -5,25 +5,6 @@ chdir(__DIR__);
 
 date_default_timezone_set('Europe/Paris');
 
-
-
-
-
-
-
-function normalizeFilepath($filepath) {
-    return str_replace('\\', '/', (string) $filepath);
-}
-
-function filepathToClassName($string) {
-    return strtolower(str_replace(
-        '.php',
-        '',
-        str_replace('/', '\\', $string)
-    ));
-}
-
-
 include('vendor/autoload.php');
 
 
@@ -62,6 +43,36 @@ spl_autoload_register(function($calledClassName) {
         include($classIndex[$normalizedClassName]);
     }
 });
+
+
+//=======================================================
+/*
+ *@todo routeur
+ */
+
+
+$uri=$_SERVER['REQUEST_URI'];
+
+if(preg_match('`module/+`', $uri)) {
+
+
+    $moduleName=preg_replace('`.*?/module/(.*?)/.*`', '$1', $uri);
+    $methodName=preg_replace('`.*?/module/.*?/(.*)`', '$1', $uri);
+
+    $controllerName='\PMD\Capital\Module\\'.$moduleName."\View\Manager";
+
+    $controller=new $controllerName();
+
+    $parameters=array();
+
+    header('Content-type: application/json; charset="utf-8"');
+    echo call_user_func_array(array($controller, $methodName), $parameters);
+
+
+    exit();
+}
+
+
 
 
 

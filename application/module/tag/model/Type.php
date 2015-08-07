@@ -2,11 +2,12 @@
 namespace PMD\Capital\Module\Tag\Model;
 use PMD\Capital\Model\DatabaseElement;
 use PMD\Capital\Model\Tree;
+use PMD\Capital\Model\InheritableAttribute;
 
 class Type extends DatabaseElement
 {
 
-    use Tree;
+    use InheritableAttribute;
 
     protected $values=array(
         'id'=>null,

@@ -66,14 +66,44 @@ $query="
   INSERT INTO ".Type::getTableName()." (
     qname,
     caption,
-    datecreation
+    datecreation,
+    data
   ) VALUES (
     'default',
     'Type par défaut',
-    NOW()
+    NOW(),
+    ''
   )
 ";
 $tagDataSource->query($query);
+
+
+$tagTypeTree=new Type($tagDataSource);
+$rootTypeNode=$tagTypeTree->getRoot();
+
+$rootTypeNode->setValue('data','{
+    "attributes": {
+        "image": {
+            "mandatory": false,
+            "type": "text",
+            "default": null
+        },
+        "title": {
+            "mandatory": false,
+            "type": "text",
+            "default": null
+        },
+        "description": {
+            "mandatory": false,
+            "type": "text",
+            "default": null
+        }
+    },
+    "rules": []
+}');
+$rootTypeNode->update();
+
+
 
 
 echo "Create  Flag type\n";
@@ -86,7 +116,7 @@ $query="
     caption,
     datecreation
   ) VALUES (
-    ".$rootTagId.",
+    ".$rootTypeNode->getId().",
     'flag',
     'Flag',
     NOW()
@@ -104,7 +134,7 @@ $query="
     caption,
     datecreation
   ) VALUES (
-    ".$rootTagId.",
+    ".$rootTypeNode->getId().",
     'category',
     'Catégorie',
     NOW()
@@ -123,7 +153,7 @@ $query="
     caption,
     datecreation
   ) VALUES (
-    ".$rootTagId.",
+    ".$rootTypeNode->getId().",
     'content',
     'Contenu',
     NOW()
