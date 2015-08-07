@@ -1,13 +1,12 @@
 <?php
-namespace PMD\Capital\Model;
-
+namespace PMD\Capital\Module\Tag\Model;
+use PMD\Capital\Model\DatabaseElement;
 use PMD\Capital\Model\Tree;
 
-class ObjectType extends DatabaseElement
+class Type extends DatabaseElement
 {
 
     use Tree;
-
 
     protected $values=array(
         'id'=>null,
@@ -21,7 +20,7 @@ class ObjectType extends DatabaseElement
     );
 
     static public function getTableName() {
-        return 'pmd_objecttype';
+        return 'pmd_tagtype';
     }
 
 

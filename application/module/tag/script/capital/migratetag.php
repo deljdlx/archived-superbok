@@ -1,19 +1,30 @@
 <?php
 
-$model=\PMD\Capital\Configuration\DataSource::get('tag');
 
-$newModel=\PMD\Capital\Configuration\DataSource::get('new');
+use \PMD\Capital\Configuration\DataSource;
+use PMD\Capital\Module\Tag\Model\Tag;
+use PMD\Capital\Model\ObjectType;
+use PMD\Capital\Module\Tag\Model\Type;
+use PMD\Capital\Module\Tag\Model\Association;
+use PMD\Capital\Module\Tag\Model\AssociationType;
 
-$newModel->query('TRUNCATE TABLE '.\PMD\Capital\Model\Tag::getTableName());
+use PMD\Capital\Module\Tag\Model\EzPublish\Tag as EzTag;
 
 
-echo "Create root tag \n";
+$model=DataSource::get('tag');
+
+$newModel=DataSource::get('new');
 
 
-$rootTag=new \PMD\Capital\Model\Tag();
-$rootTag->setSource($newModel);
-$rootTag->setCaption('#');
-$rootTag->insert();
+
+
+
+
+
+$treeTag=new Tag($newModel);
+$rootTag=$treeTag->getRoot();
+
+
 
 
 
@@ -29,7 +40,7 @@ $query="
     slug.slug
 
 
-  FROM ".\PMD\Capital\Model\EzPublish\Tag::getTableName()." tag
+  FROM ".EzTag::getTableName()." tag
   JOIN pmd_tagslug slug
     ON slug.id_tag=tag.id
   "
@@ -53,7 +64,7 @@ $newModel->autocommit(false);
 
 foreach ($oldTags as $row) {
 
-    $tag=new \PMD\Capital\Model\Tag();
+    $tag=new Tag();
     $tag->setSource($newModel);
 
     $tag->setCaption($row['keyword']);
@@ -72,7 +83,7 @@ foreach ($oldTags as $row) {
 
 
 foreach ($newTagMapping as $oldId=>$newId) {
-    $tag=new \PMD\Capital\Model\Tag();
+    $tag=new Tag();
     $tag->setSource($newModel);
     $tag->loadById($newId);
 
@@ -105,11 +116,17 @@ foreach ($newTagMapping as $oldId=>$newId) {
 
 
 
-$tagTree=new \PMD\Capital\Model\Tag();
+$startTime=microtime(true);
+
+$tagTree=new Tag();
 $tagTree->setSource($newModel);
+$tagTree->reset();
 $tagTree->buildTree();
 
 $newModel->commit();
+
+$elapsed=microtime(true)-$startTime;
+echo "Tag tree building duration : ".$elapsed."\n";
 
 
 

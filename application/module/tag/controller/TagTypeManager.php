@@ -1,6 +1,8 @@
 <?php
 namespace PMD\Capital\Module\Tag\Controller;
 
+use PMD\Capital\Module\Tag\Model\Type;
+
 
 class TagTypeManager
 {
@@ -8,7 +10,7 @@ class TagTypeManager
 
     public function getTree($nodeId) {
 
-        $tree=new \PMD\Capital\Model\TagType('new');
+        $tree=new Type('new');
 
 
         if((int) $nodeId) {

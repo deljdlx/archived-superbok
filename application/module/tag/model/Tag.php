@@ -1,6 +1,7 @@
 <?php
-namespace PMD\Capital\Model;
-
+namespace PMD\Capital\Module\Tag\Model;
+use PMD\Capital\Model\DatabaseElement;
+use PMD\Capital\Model\Tree;
 
 class Tag extends DatabaseElement
 {
@@ -24,13 +25,18 @@ class Tag extends DatabaseElement
     );
 
 
+    public static function getTableName() {
+        return 'pmd_tag';
+    }
+
+
 
     public function getType() {
         if($this->type!==null) {
             return $this->type;
         }
         else {
-            $this->type=new TagType($this->getSource());
+            $this->type=new Type($this->getSource());
             $this->type->loadById($this->getValue('type_id'));
             return $this->type;
         }
@@ -44,9 +50,6 @@ class Tag extends DatabaseElement
 
 
 
-    public static function getTableName() {
-        return 'pmd_tag';
-    }
 
 
     public function setCaption($caption) {

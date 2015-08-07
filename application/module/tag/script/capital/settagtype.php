@@ -1,9 +1,17 @@
 <?php
 
+use \PMD\Capital\Configuration\DataSource;
+use PMD\Capital\Module\Tag\Model\Tag;
+use PMD\Capital\Model\ObjectType;
+use PMD\Capital\Module\Tag\Model\Type;
+use PMD\Capital\Module\Tag\Model\Association;
+use PMD\Capital\Module\Tag\Model\AssociationType;
+
+
 
 //on met les bon types de tags pour les tags existants
 
-$tree=new \PMD\Capital\Model\Tag('new');
+$tree=new Tag('new');
 $tree=$tree->getRoot();
 
 
@@ -14,7 +22,7 @@ $rows=$tree->queryAndFetch('SELECT * FROM pmd_tagtype');
 
 $types=array();
 foreach ($rows as $row) {
-    $types[$row['caption']]=$row;
+    $types[$row['qname']]=$row;
 }
 
 

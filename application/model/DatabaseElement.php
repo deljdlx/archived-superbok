@@ -267,10 +267,16 @@ abstract class  DatabaseElement
     }
 
 
-    public function autocommit($value) {
+    public function autocommit($value=null) {
         if(!$this->source) {
             $this->source=$this->getDefaultSource();
         }
+
+        if($value===null) {
+            return $this->source->autocommit();
+        }
+
+
         $this->source->autocommit($value);
         return $this;
     }

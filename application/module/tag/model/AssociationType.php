@@ -1,13 +1,17 @@
 <?php
-namespace PMD\Capital\Model;
+
+namespace PMD\Capital\Module\Tag\Model;
+use PMD\Capital\Model\DatabaseElement;
 
 
-class TagAssociationType extends DatabaseElement
+
+class AssociationType extends DatabaseElement
 {
 
 
     protected $values=array(
         'id'=>null,
+        'qname'=>null,
         'caption'=>null,
         'datecreation'=>null,
         'datemodification'=>null,

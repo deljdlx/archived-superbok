@@ -1,5 +1,5 @@
 <?php
-namespace PMD\Capital\Model\EzPublish;
+namespace PMD\Capital\Module\Tag\Model\EzPublish;
 
 
 use PMD\Capital\Model\DatabaseElement;

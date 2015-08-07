@@ -11,6 +11,9 @@ Trait Tree
 
     abstract public static function getTableName();
     abstract public static function getSource();
+
+    abstract public function autocommit($value=null);
+    abstract public function commit();
     abstract public function getValue($name, $default=false);
     abstract public function setValues($values);
 
@@ -147,13 +150,16 @@ Trait Tree
     }
 
     public function buildTree($idNode=1) {
+
+        $autocommitState=$this->autocommit();
+
         $this->autocommit(false);
         $bound=0;
 
         $this->updateLeftbound($idNode, $bound);
 
         $this->commit();
-        $this->autocommit(true);
+        $this->autocommit($autocommitState);
     }
 
 

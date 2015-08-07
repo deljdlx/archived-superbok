@@ -1,8 +1,12 @@
 <?php
-namespace PMD\Capital\Model;
+namespace PMD\Capital\Module\Tag\Model;
+use PMD\Capital\Model\DatabaseElement;
 
 
-class TagAssociation extends DatabaseElement
+use PMD\Capital\Model\ObjectType;
+
+
+class Association extends DatabaseElement
 {
 
 
@@ -22,7 +26,7 @@ class TagAssociation extends DatabaseElement
 
     public function __construct($source) {
         parent::__construct($source);
-        $object=new TagAssociationType($this->getSource());
+        $object=new AssociationType($this->getSource());
         $object->loadBy('caption', 'dafault');
         $this->associationType=$object;
 

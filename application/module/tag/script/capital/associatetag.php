@@ -1,20 +1,30 @@
 <?php
+use \PMD\Capital\Configuration\DataSource;
+use \PMD\Capital\Configuration\ObjectType;
+
+
+use PMD\Capital\Module\Tag\Model\Tag;
+use PMD\Capital\Module\Tag\Model\Association;
+
 
 ini_set('memory_limit', '-1');
 
-$oldModel=\PMD\Capital\Configuration\DataSource::get('old');
-$newModel=\PMD\Capital\Configuration\DataSource::get('new');
+$oldModel=DataSource::get('old');
+$newModel=DataSource::get('new');
 
 
 
 
-$ezObjectType=new \PMD\Capital\Model\ObjectType($newModel);
-$ezObjectType->loadBy('caption', 'ezobject');
+$ezObjectType=new ObjectType($newModel);
+$ezObjectType->loadBy('qname', 'ezobject');
 
 
 
-$defaultAssociation=new \PMD\Capital\Model\TagAssociationType($newModel);
-$defaultAssociation->loadBy('caption', 'ezobject');
+$defaultAssociation=new AssociationType($newModel);
+$defaultAssociation->loadBy('qname', 'default');
+
+
+
 
 $query="
     SELECT
@@ -30,10 +40,10 @@ $rows=$oldModel->queryAndFetch($query);
 
 $newModel->autocommit(false);
 foreach ($rows as $row) {
-    $tag=new \PMD\Capital\Model\Tag($newModel);
+    $tag=new Tag($newModel);
     $tag->loadBy('caption', $row['keyword']);
 
-    $association=new \PMD\Capital\Model\TagAssociation($newModel);
+    $association=new Association($newModel);
     $association->setValue('tag_id', $tag->getId());
     $association->setValue('object_id', $row['object_id']);
     $association->setObjectType($ezObjectType);

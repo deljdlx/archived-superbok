@@ -58,7 +58,14 @@ class Datasource
     }
 
 
-    public function autocommit($value) {
+    public function autocommit($value=null) {
+        if($value===null) {
+            $query="
+                SELECT @@autocommit as autocommitActivated;
+            ";
+            $data=$this->queryAndFetchOne($query);
+            return $data['autocommitActivated'];
+        }
         $this->source->autocommit($value);
         return $this;
     }
