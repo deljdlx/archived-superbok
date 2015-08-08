@@ -1,4 +1,4 @@
-TagTypeManager={
+TagManager={
 	treeNodeSelector:'#tree',
 	captionNodeSelector:'.tagTypeCaption',
 	initialize:function() {
@@ -47,6 +47,8 @@ TagTypeManager={
 		};
 	},
 	initializeEditor: function() {
+		//CodeMirror.toTextArea(document.getElementById('codeEditor'));
+
 		TagTypeManager.editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
 			lineNumbers: true
 		});
@@ -77,6 +79,7 @@ TagTypeManager={
 				},
 				'data' : {
 					"success":function(data) {
+						console.debug(data)
 					},
 
 					"url" : function (node) {
@@ -85,6 +88,7 @@ TagTypeManager={
 					"dataType" : "json", // needed only if you do not supply JSON headers
 
 					"data" : function (node) {
+						console.debug('hello');
 						return { "nodeId" : node.id };
 					}
 				}
@@ -92,29 +96,18 @@ TagTypeManager={
 			"plugins" : ["contextmenu"]
 		});
 
+
+		console.debug(TagTypeManager.tree);
+
 		TagTypeManager.tree.on("select_node.jstree", function (e, data) {
 			TagTypeManager.displayNodeData(data.node);
 		});
 
-		/*
-		 $('#tree').on("move_node.jstree", function (e, data) {
-		 console.debug(data.node.original);
-		 console.debug(data.node.id);
-		 console.debug(data.parent);
-		 $('#tree').jstree().open_node(data.parent);
-		 });
-
-		 $(document).on('dnd_stop.vakata', function(event, data) {
-		 });
-
-		 */
 	},
 
 	displayNodeData: function(node) {
 
 		$(TagTypeManager.captionNodeSelector).html('Type de tag : '+node.text);
-
-
 		if(node.data) {
 			TagTypeManager.editor.setValue(node.data);
 		}
@@ -129,4 +122,4 @@ if(typeof(Application.modules['Tag'])=='undefined') {
 }
 
 
-Application.modules['Tag']['TagTypeManager']=TagTypeManager;
+Application.modules['Tag']['TagManager']=TagManager;

@@ -53,22 +53,14 @@ spl_autoload_register(function($calledClassName) {
 
 $uri=$_SERVER['REQUEST_URI'];
 
-if(preg_match('`module/+`', $uri)) {
-
-
-    $moduleName=preg_replace('`.*?/module/(.*?)/.*`', '$1', $uri);
-    $methodName=preg_replace('`.*?/module/.*?/(.*)`', '$1', $uri);
-
+if(preg_match('`moduleview/+`', $uri)) {
+    $moduleName=preg_replace('`.*?/moduleview/(.*?)/.*`', '$1', $uri);
+    $methodName=preg_replace('`.*?/moduleview/.*?/(.*)`', '$1', $uri);
     $controllerName='\PMD\Capital\Module\\'.$moduleName."\View\Manager";
-
     $controller=new $controllerName();
-
     $parameters=array();
-
     header('Content-type: application/json; charset="utf-8"');
     echo call_user_func_array(array($controller, $methodName), $parameters);
-
-
     exit();
 }
 

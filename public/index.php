@@ -67,11 +67,11 @@ include('../bootstrap.php');
 
 
 
-
-    <link rel="stylesheet" href="vendor/codemirror/lib/codemirror.css"/>
+<!--
     <script src="vendor/codemirror/lib/codemirror.js"></script>
-
     <script src="vendor/codemirror/mode/javascript/javascript.js"></script>
+//-->
+
 
 
     <script src="application/application.js"></script>
@@ -184,7 +184,7 @@ include('../bootstrap.php');
 
        .CodeMirror {
            width:100%;
-           height: 100%;
+           height: 100% !important;
        }
 
 
@@ -266,7 +266,7 @@ include('../bootstrap.php');
             <a class="mdl-navigation__link" href="#"><i class="fa fa-2x fa-fw fa-home"></i> Accueil</a>
             <a class="mdl-navigation__link" href="#"><i class="fa fa-2x fa-fw fa-newspaper-o"></i> Contenus</a>
             <a class="mdl-navigation__link" href="#"><i class="fa fa-2x fa-fw fa-industry"></i> Entreprises</a>
-            <a class="mdl-navigation__link" href="#"><i class="fa fa-2x fa-fw fa-tags"></i> Tags</a>
+            <a class="mdl-navigation__link" href="#module=Tag&action=TagTypeManager.initialize"><i class="fa fa-2x fa-fw fa-tags"></i> Tags</a>
 
             <hr/>
 
@@ -285,9 +285,6 @@ include('../bootstrap.php');
 
 
     <main class="mdl-layout__content mdl-color--grey-100 mainPanel">
-
-
-
 
 
 
