@@ -63,6 +63,24 @@ if(preg_match('`moduleview/+`', $uri)) {
     echo call_user_func_array(array($controller, $methodName), $parameters);
     exit();
 }
+if(preg_match('`module/.+?/.+?/.+?`', $uri)) {
+    $moduleName=preg_replace('`.*?/module/(.*?)/.*`', '$1', $uri);
+    $controllerName=preg_replace('`.*?/module/.*?/(.*?)/.*`', '$1', $uri);
+    $methodName=preg_replace('`.*?/module/.+?/.+?/([^?]+?)\?.*`', '$1', $uri);
+
+
+
+    $fullControllerName='\PMD\Capital\Module\\'.$moduleName.'\Controller\\'.$controllerName;
+
+
+    $parameters=$_GET;
+    $controller=new $fullControllerName();
+    $data=call_user_func_array(array($controller, $methodName), $parameters);
+
+    header('Content-type: application/json; charset="utf-8"');
+    echo json_encode($data);
+    exit();
+}
 
 
 

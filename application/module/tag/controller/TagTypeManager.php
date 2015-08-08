@@ -12,7 +12,6 @@ class TagTypeManager
 
         $tree=new Type('new');
 
-
         if((int) $nodeId) {
             $tree->loadById($nodeId);
             $rootNode=null;

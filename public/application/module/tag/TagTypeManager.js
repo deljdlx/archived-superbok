@@ -1,4 +1,5 @@
 TagTypeManager={
+	dataSourceURL:'module/tag/tagtypemanager/gettree',
 	treeNodeSelector:'#tree',
 	captionNodeSelector:'.tagTypeCaption',
 	initialize:function() {
@@ -80,7 +81,7 @@ TagTypeManager={
 					},
 
 					"url" : function (node) {
-						return 'action.php?action=getChildren';
+						return TagTypeManager.dataSourceURL;
 					},
 					"dataType" : "json", // needed only if you do not supply JSON headers
 
