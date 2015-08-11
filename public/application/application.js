@@ -3,19 +3,33 @@ function Application() {
 
 	this.mainPanelNodeSelector='main.mainPanel';
 	this.mainPanel=$(this.mainPanelNodeSelector);
-	this.loadedJavascripts={};
-	this.loadedCSS={};
-}
 
+	this.modules={};
+
+	Application.mainInstance=this;
+}
 
 Application.modules={};
 
+
 Application.prototype.start=function() {
-
 	this.route();
-
 }
 
+
+Application.getInstance=function() {
+	return Application.mainInstance;
+}
+
+
+Application.prototype.getModule=function (name) {
+	return this.modules[name];
+}
+
+
+Application.prototype.setMainPanelContent=function(content) {
+	this.mainPanel.html(content);
+}
 
 
 Application.prototype.getParameters=function(buffer) {
@@ -98,75 +112,22 @@ Application.prototype.runAction=function(moduleName, request) {
 
 
 Application.prototype.loadModule=function(moduleName, request) {
+
 	this.ajax({
 		url: this.moduleRoot+'/'+moduleName+'/initialize',
 		success: function(data) {
+			var module=new Module();
+			module.loadData(data);
+			module.start(function() {
+				this.runAction(moduleName, request);
+			}.bind(this));
 
-			this.mainPanel.html(data.view);
+			this.modules[moduleName]=module;
 
-
-			if(typeof(data.css)!='undefined') {
-				for (var cssName in data.css) {
-					if (typeof(this.loadedCSS[data.css[cssName].url]) == 'undefined') {
-						this.loadedCSS[data.css[cssName].url] = data
-						this.loadCSS(data.css[cssName].url);
-					}
-				}
-			}
-
-
-
-			if(typeof(data.javascripts)!='undefined') {
-				var loadedScripts=0;
-				var nbSripts=0;
-				for(var javascriptName in data.javascripts) {
-					nbSripts++;
-					if(typeof(data.javascripts[javascriptName].url)!='undefined') {
-
-						if(typeof(this.loadedJavascripts[data.javascripts[javascriptName].url])=='undefined') {
-							this.loadedJavascripts[data.javascripts[javascriptName].url] = data
-
-							if (nbSripts == Object.keys(data.javascripts).length) {
-								var callback = function () {
-									this.runAction(moduleName, request);
-								}
-							}
-							else {
-								var callback = function () {
-									loadedScripts++;
-								};
-							}
-							this.loadJavascript(data.javascripts[javascriptName].url, callback.bind(this));
-						}
-						else {
-							this.runAction(moduleName, request);
-						}
-					}
-				}
-			}
+			return;
 
 		}.bind(this)
 	});
-}
-
-
-
-
-
-Application.prototype.loadCSS=function(url) {
-	$('head').append('<link rel="stylesheet" href="'+url+'"></link>');
-}
-
-
-
-
-
-
-
-
-
-Application.prototype.loadJavascript=function(url, callback) {
-	$.getScript(url, callback);
 }
 
 

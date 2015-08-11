@@ -1,2 +1,2 @@
-php cronjob.php module/tag/script/installdatabase.php
-php cronjob.php module/tag/script/populatedatabase.php
+php cronjob.php application/module/tag/script/installdatabase.php
+php cronjob.php application/module/tag/script/populatedatabase.php

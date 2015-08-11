@@ -2,7 +2,14 @@ TagTypeManager={
 	dataSourceURL:'module/tag/tagtypemanager/gettree',
 	treeNodeSelector:'#tree',
 	captionNodeSelector:'.tagTypeCaption',
+
 	initialize:function() {
+		this.application=Application.getInstance();
+		this.module=Application.getInstance().getModule('Tag');
+
+		this.application.setMainPanelContent(this.module.getView('tagTypeManagerLayout'));
+
+
 		TagTypeManager.initializeTree();
 		TagTypeManager.initializeEditor();
 	},

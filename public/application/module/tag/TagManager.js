@@ -1,15 +1,22 @@
 TagManager={
+	dataSourceURL:'module/tag/tagmanager/gettree',
 	treeNodeSelector:'#tree',
 	captionNodeSelector:'.tagTypeCaption',
 	initialize:function() {
-		TagTypeManager.initializeTree();
-		TagTypeManager.initializeEditor();
+
+		this.application=Application.getInstance();
+		this.module=Application.getInstance().getModule('Tag');
+
+		this.application.setMainPanelContent(this.module.getView('tagManagerLayout'));
+
+		TagManager.initializeTree();
+		TagManager.initializeEditor();
 	},
 
 	initializeTreeOptions:function() {
 		$.jstree.defaults.contextmenu={
 			"items" : function($node) {
-				var tree = TagTypeManager.tree.jstree(true);
+				var tree = TagManager.tree.jstree(true);
 				return {
 					"Create": {
 						"separator_before": false,
@@ -47,22 +54,20 @@ TagManager={
 		};
 	},
 	initializeEditor: function() {
-		//CodeMirror.toTextArea(document.getElementById('codeEditor'));
-
-		TagTypeManager.editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
+		TagManager.editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
 			lineNumbers: true
 		});
 	},
 	initializeTree: function() {
 
-		TagTypeManager.initializeTreeOptions();
+		TagManager.initializeTreeOptions();
 
-		console.debug(TagTypeManager.treeNodeSelector);
+		console.debug(TagManager.treeNodeSelector);
 
-		$(TagTypeManager.treeNodeSelector).jstree('destroy');
+		$(TagManager.treeNodeSelector).jstree('destroy');
 
 
-		TagTypeManager.tree=$(TagTypeManager.treeNodeSelector).jstree({
+		TagManager.tree=$(TagManager.treeNodeSelector).jstree({
 			'core' : {
 
 				'check_callback' : function(o, n, p, i, m) {
@@ -79,16 +84,14 @@ TagManager={
 				},
 				'data' : {
 					"success":function(data) {
-						console.debug(data)
 					},
 
 					"url" : function (node) {
-						return 'action.php?action=getChildren';
+						return TagManager.dataSourceURL;
 					},
 					"dataType" : "json", // needed only if you do not supply JSON headers
 
 					"data" : function (node) {
-						console.debug('hello');
 						return { "nodeId" : node.id };
 					}
 				}
@@ -96,26 +99,40 @@ TagManager={
 			"plugins" : ["contextmenu"]
 		});
 
-
-		console.debug(TagTypeManager.tree);
-
-		TagTypeManager.tree.on("select_node.jstree", function (e, data) {
-			TagTypeManager.displayNodeData(data.node);
+		TagManager.tree.on("select_node.jstree", function (e, data) {
+			TagManager.displayNodeData(data.node);
 		});
 
+		/*
+		 $('#tree').on("move_node.jstree", function (e, data) {
+		 console.debug(data.node.original);
+		 console.debug(data.node.id);
+		 console.debug(data.parent);
+		 $('#tree').jstree().open_node(data.parent);
+		 });
+
+		 $(document).on('dnd_stop.vakata', function(event, data) {
+		 });
+
+		 */
 	},
 
 	displayNodeData: function(node) {
 
-		$(TagTypeManager.captionNodeSelector).html('Type de tag : '+node.text);
+		$(TagManager.captionNodeSelector).html('Type de tag : '+node.text);
+
+
 		if(node.data) {
-			TagTypeManager.editor.setValue(node.data);
+			TagManager.editor.setValue(node.data);
 		}
 		else {
-			TagTypeManager.editor.setValue("");
+			TagManager.editor.setValue("");
 		}
 	}
 };
+
+
+
 
 if(typeof(Application.modules['Tag'])=='undefined') {
 	Application.modules['Tag']={};

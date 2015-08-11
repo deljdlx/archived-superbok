@@ -9,7 +9,10 @@ class Manager
 
     public function initialize() {
         return json_encode(array(
-           'view'=>file_get_contents('public/application/module/tag/template/mainpanel.html'),
+           'views'=>array(
+               'tagTypeManagerLayout'=>file_get_contents('public/application/module/tag/template/tagtypemanager.mainpanel.html'),
+               'tagManagerLayout'=>file_get_contents('public/application/module/tag/template/tagmanager.mainpanel.html'),
+           ),
             'javascripts'=>array(
 
                 'coreCodeMirror'=>array(
@@ -28,8 +31,6 @@ class Manager
                     'callback'=>'TagManager.initialize()'
                 ),
             ),
-
-
             'css'=>array(
                 'codeMirror'=>array(
                     'url'=>'vendor/codemirror/lib/codemirror.css',

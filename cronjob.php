@@ -7,9 +7,9 @@ include(__DIR__.'/bootstrap.php');
 
 
 
-if(is_file('application/'.$argv[1])) {
-    echo 'Start script application/'.$argv[1]."\n";
-    return include('application/'.$argv[1]);
+if(is_file($argv[1])) {
+    echo 'Start script '.$argv[1]."\n";
+    return include(''.$argv[1]);
 
 }
 else {

@@ -75,6 +75,7 @@ include('../bootstrap.php');
 
 
     <script src="application/application.js"></script>
+    <script src="application/module.js"></script>
 
 
 

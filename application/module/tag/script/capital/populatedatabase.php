@@ -62,15 +62,64 @@ $query="
     parent_id,
     qname,
     caption,
-    datecreation
+    datecreation,
+    data
   ) VALUES (
     ".$contentTagId.",
     'company',
     'Entreprise',
-    NOW()
+    NOW(),
+    '".'{
+    "attributes": {
+        "isin": {
+            "caption" : "Code ISIN",
+            "mandatory": false,
+            "type": "text",
+            "default": null
+        },
+        "listed": {
+            "caption" : "Entreprise cotée",
+            "mandatory": false,
+            "type": "bool",
+            "default": false
+        },
+        "sixId": {
+            "caption" : "ID Six",
+            "mandatory": false,
+            "type": "int",
+            "default": null
+        },
+        "cofisemId": {
+            "caption" : "ID Cofisem",
+            "mandatory": false,
+            "type": "int",
+            "default": null
+        }
+    },
+    "rules": []
+}'.
+
+    "'
   )
 ";
 $tagDataSource->query($query);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 echo "Create Person tag type\n";

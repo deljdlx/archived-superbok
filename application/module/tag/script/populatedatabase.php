@@ -45,6 +45,30 @@ $query="
 $tagDataSource->query($query);
 
 
+$parentId=$tagDataSource->getLastInsertId();
+
+echo "Create Tag Object type\n";
+$query="
+    INSERT INTO pmd_objecttype (
+      parent_id,
+      qname,
+      caption,
+      datecreation
+    ) VALUES (
+      ".$parentId.",
+      'tag',
+      'Tag',
+      NOW()
+    )
+";
+$tagDataSource->query($query);
+
+
+
+
+
+
+
 
 echo "Construction de l'arbre des types\n";
 $tree=new ObjectType();
@@ -84,18 +108,22 @@ $rootTypeNode=$tagTypeTree->getRoot();
 $rootTypeNode->setValue('data','{
     "attributes": {
         "image": {
+            "caption": "Image",
             "mandatory": false,
             "type": "text",
             "default": null
         },
         "title": {
+            "caption": "Titre",
             "mandatory": false,
             "type": "text",
             "default": null
         },
         "description": {
+            "caption": "Description",
             "mandatory": false,
             "type": "text",
+            "subtype": "html",
             "default": null
         }
     },
