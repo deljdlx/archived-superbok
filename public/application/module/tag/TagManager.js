@@ -1,16 +1,24 @@
 TagManager={
+	getTagFormURL:'module/tag/tagmanager/getForm',
 	dataSourceURL:'module/tag/tagmanager/gettree',
+
 	treeNodeSelector:'#tree',
+	formContainerSelector:'.tagForm',
+
 	captionNodeSelector:'.tagTypeCaption',
 	initialize:function() {
 
-		this.application=Application.getInstance();
-		this.module=Application.getInstance().getModule('Tag');
+		TagManager.application=Application.getInstance();
+		TagManager.module=Application.getInstance().getModule('Tag');
 
-		this.application.setMainPanelContent(this.module.getView('tagManagerLayout'));
+		TagManager.application.setMainPanelContent(TagManager.module.getView('tagManagerLayout'));
+
+		TagManager.formContainer= $(TagManager.formContainerSelector);
 
 		TagManager.initializeTree();
-		TagManager.initializeEditor();
+
+
+		//TagManager.initializeEditor();
 	},
 
 	initializeTreeOptions:function() {
@@ -119,19 +127,27 @@ TagManager={
 
 	displayNodeData: function(node) {
 
-		$(TagManager.captionNodeSelector).html('Type de tag : '+node.text);
+		$(TagManager.captionNodeSelector).html('Tag : '+node.text+ ' ('+node.original.type+')');
+
+		$.ajax({
+			url:this.getTagFormURL+'?nodeId='+node.id,
+			success: function(data) {
+
+				console.debug(data);
+
+				TagManager.formContainer.html('');
+
+				for(var name in data) {
+					TagManager.formContainer.append(data[name]);
+				}
+			}
+		})
 
 
-		if(node.data) {
-			TagManager.editor.setValue(node.data);
-		}
-		else {
-			TagManager.editor.setValue("");
-		}
+
+
 	}
 };
-
-
 
 
 if(typeof(Application.modules['Tag'])=='undefined') {
@@ -140,3 +156,4 @@ if(typeof(Application.modules['Tag'])=='undefined') {
 
 
 Application.modules['Tag']['TagManager']=TagManager;
+

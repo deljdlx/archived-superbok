@@ -138,3 +138,4 @@ if(typeof(Application.modules['Tag'])=='undefined') {
 
 
 Application.modules['Tag']['TagTypeManager']=TagTypeManager;
+

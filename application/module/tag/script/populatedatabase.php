@@ -110,7 +110,7 @@ $rootTypeNode->setValue('data','{
         "image": {
             "caption": "Image",
             "mandatory": false,
-            "type": "text",
+            "type": "image",
             "default": null
         },
         "title": {

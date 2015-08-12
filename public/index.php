@@ -39,43 +39,52 @@ include('../bootstrap.php');
     <meta name="apple-mobile-web-app-title" content="Material Design Lite">
 
 
-    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
 
 
 
 
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+    <script src="vendor/webcomponents.min.js"></script>
 
     <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
 
 
 
-        <link rel="stylesheet" href="vendor/mdl/material.min.css">
-        <script src="vendor/mdl/material.min.js"></script>
-        <link rel="stylesheet" href="asset/css/material.css">
+    <link rel="stylesheet" href="vendor/mdl/material.min.css"></link>
+    <script src="vendor/mdl/material.js"></script>
+    <link rel="stylesheet" href="asset/css/material.css"></link>
 
 
 
     <script src="vendor/jquery-2.1.4.min.js"></script>
 
 
-    <link rel="stylesheet" href="vendor/jstree/dist/themes/default/style.min.css" />
-    <script src="vendor/jstree/dist/jstree.min.js"></script>
+    <script src="application/Application.js"></script>
+    <script src="application/Module.js"></script>
 
 
 
 
-<!--
-    <script src="vendor/codemirror/lib/codemirror.js"></script>
-    <script src="vendor/codemirror/mode/javascript/javascript.js"></script>
-//-->
+
+
+    <script src="vendor/focus-point-picker/bower_components/cropper/dist/cropper.js"></script>
+    <script src="vendor/focus-point-picker/src/js/focusPointPicker.js"></script>
 
 
 
-    <script src="application/application.js"></script>
-    <script src="application/module.js"></script>
+
+    <script src="asset/webcomponent/pmd/form/image/component.js"></script>
+    <script src="asset/webcomponent/pmd/form/text/component.js"></script>
+
+
+
+
+    <!--
+        <script src="vendor/codemirror/lib/codemirror.js"></script>
+        <script src="vendor/codemirror/mode/javascript/javascript.js"></script>
+    //-->
+
+
+
 
 
 
@@ -95,7 +104,11 @@ include('../bootstrap.php');
 
 
     <script type="text/javascript">
-        $(document).ready(function () {
+
+
+
+
+        jQuery(function() {
 
 
             var backoffice=new Application();
@@ -180,7 +193,7 @@ include('../bootstrap.php');
        .mdl-card__supporting-text {
            width:100%;
            box-sizing: border-box;
-           height: 450px;
+           /*height: 450px;*/
        }
 
        .CodeMirror {
@@ -240,6 +253,9 @@ include('../bootstrap.php');
             </ul>
         </div>
     </header>
+
+
+
     <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <header class="demo-drawer-header">
             <img src="images/user.jpg" class="demo-avatar">
@@ -263,6 +279,8 @@ include('../bootstrap.php');
 
 
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+
+
 
             <a class="mdl-navigation__link" href="#"><i class="fa fa-2x fa-fw fa-home"></i> Accueil</a>
             <a class="mdl-navigation__link" href="#"><i class="fa fa-2x fa-fw fa-newspaper-o"></i> Contenus</a>
@@ -288,12 +306,9 @@ include('../bootstrap.php');
     <main class="mdl-layout__content mdl-color--grey-100 mainPanel">
 
 
+        <script>
 
-
-
-
-
-
+        </script>
 
 
 
@@ -301,6 +316,14 @@ include('../bootstrap.php');
 
     </main>
 </div>
+
+
+<script>
+
+
+
+</script>
+
 
 
 </body>

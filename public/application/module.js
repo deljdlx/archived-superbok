@@ -56,6 +56,9 @@ Module.prototype.start=function(callback) {
 
 	var customCallback=function() {
 		customCallback.nbScriptLoaded++;
+
+		console.debug(customCallback.nbScriptLoaded, customCallback.nbScript);
+
 		if(customCallback.nbScriptLoaded==customCallback.nbScript) {
 			customCallback.callback();
 		}

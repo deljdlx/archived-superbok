@@ -4326,6 +4326,7 @@
     <table name="pmd_objecttype" schema="" catalog="newcap" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="parent_id" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="qname" sqlType="VARCHAR" length="100" precision="0" nullable="false" jdbcType="12"/>
       <column name="caption" sqlType="VARCHAR" length="100" precision="0" nullable="false" jdbcType="12"/>
       <column name="leftbound" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4"/>
       <column name="rightbound" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4"/>
@@ -4336,6 +4337,7 @@
       <index name="pmdobjecttype_bounds" unique="false" columns="leftbound,rightbound"/>
       <index name="pmdobjecttype_caption" unique="false" columns="caption"/>
       <index name="pmdobjecttype_parentid" unique="false" columns="parent_id"/>
+      <index name="pmdobjecttype_qname" unique="false" columns="qname"/>
     </table>
     <table name="pmd_tag" schema="" catalog="newcap" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -4371,16 +4373,19 @@
     </table>
     <table name="pmd_tagassociationtype" schema="" catalog="newcap" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="qname" sqlType="VARCHAR" length="100" precision="0" nullable="false" jdbcType="12"/>
       <column name="caption" sqlType="VARCHAR" length="100" precision="0" nullable="false" jdbcType="12"/>
       <column name="datecreation" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93"/>
       <column name="datemodification" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="pmdassociationtype_caption" unique="false" columns="caption"/>
+      <index name="pmdassociationtype_qname" unique="false" columns="qname"/>
     </table>
     <table name="pmd_tagtype" schema="" catalog="newcap" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="parent_id" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4"/>
       <column name="caption" sqlType="VARCHAR" length="100" precision="0" nullable="false" jdbcType="12"/>
+      <column name="qname" sqlType="VARCHAR" length="100" precision="0" nullable="false" jdbcType="12"/>
       <column name="leftbound" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4"/>
       <column name="rightbound" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4"/>
       <column name="datecreation" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93"/>
@@ -4390,6 +4395,7 @@
       <index name="pmdtagtype_bounds" unique="false" columns="leftbound,rightbound"/>
       <index name="pmdtagtype_caption" unique="false" columns="caption"/>
       <index name="pmdtagtype_parentid" unique="false" columns="parent_id"/>
+      <index name="pmdtagtype_qname" unique="false" columns="qname"/>
     </table>
     <table name="cond_instances" schema="" catalog="performance_schema" type="SYSTEM TABLE">
       <column name="NAME" sqlType="VARCHAR" length="128" precision="0" nullable="false" jdbcType="12"/>

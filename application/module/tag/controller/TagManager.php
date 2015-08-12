@@ -3,6 +3,7 @@ namespace PMD\Capital\Module\Tag\Controller;
 
 
 use PMD\Capital\Configuration\DataSource;
+use PMD\Capital\Library\AttributeRenderer;
 use PMD\Capital\Module\Tag\Model\Tag;
 use PMD\Capital\Model\ObjectType;
 use PMD\Capital\Module\Tag\Model\Type;
@@ -10,12 +11,12 @@ use PMD\Capital\Module\Tag\Model\Association;
 use PMD\Capital\Module\Tag\Model\AssociationType;
 
 
-class TagManager
+class TagManager extends Controller
 {
 
 
     public function getTree($nodeId) {
-        $tree=new Tag('new');
+        $tree=new Tag($this->getDataSource());
 
 
         if((int) $nodeId) {
@@ -34,14 +35,6 @@ class TagManager
 
             $childrenExists=$child->childrenExists();
 
-            if(!empty($childrenExists)) {
-                $icon='fa fa-tags';
-            }
-            else {
-                $icon='fa fa-tag';
-            }
-
-
             if(!$child->getValue('mastertag_id')) {
 
                 $type=$child->getType();
@@ -53,12 +46,11 @@ class TagManager
                     'text'=>''.$child->getValue('caption'),
                     'children'=>$childrenExists,
                     'something'=>'test',
+                    'type'=>$type->getValue('caption'),
                     'icon'=>$icon,
                     'data'=>$child->getValue('data'),
                 );
             }
-
-
         }
 
         ksort($nodes);
@@ -67,6 +59,30 @@ class TagManager
         $nodes=array_values($nodes);
 
         return $nodes;
+    }
+
+    public function getForm($nodeId) {
+
+        $tag=new Tag($this->getDataSource());
+        $tag->loadById((int) $nodeId);
+
+        $type=$tag->getType();
+
+        $attributes=$type->getInheritableAttributes();
+
+
+
+
+        $inputs=array();
+        foreach ($attributes->attributes as $name=>$attribute) {
+            $renderer=new AttributeRenderer($attribute);
+            $inputs[$name]=$renderer->toWebComponent('', 'pmd-form');
+        }
+
+        $data=json_decode($tag->getValue('data'));
+
+        return $inputs;
+
     }
 
 

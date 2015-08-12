@@ -75,7 +75,6 @@ Application.prototype.route=function() {
 	this.routeInterval=setInterval(function() {
 		var request=this.getParameters(document.location.toString())
 
-
 		if(this.lastModule!=request.call.module) {
 			this.lastModule=request.call.module;
 			this.loadModule(request.call.module, request);
@@ -87,10 +86,14 @@ Application.prototype.route=function() {
 		}
 
 	}.bind(this), 200);
+
 }
 
 
 Application.prototype.runAction=function(moduleName, request) {
+
+
+	console.debug(request);
 
 	var action=request.call.action;
 
@@ -112,6 +115,7 @@ Application.prototype.runAction=function(moduleName, request) {
 
 
 Application.prototype.loadModule=function(moduleName, request) {
+
 
 	this.ajax({
 		url: this.moduleRoot+'/'+moduleName+'/initialize',

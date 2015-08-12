@@ -4,13 +4,13 @@ namespace PMD\Capital\Module\Tag\Controller;
 use PMD\Capital\Module\Tag\Model\Type;
 
 
-class TagTypeManager
+class TagTypeManager extends Controller
 {
 
 
     public function getTree($nodeId) {
 
-        $tree=new Type('new');
+        $tree=new Type($this->getDataSource());
 
         if((int) $nodeId) {
             $tree->loadById($nodeId);
