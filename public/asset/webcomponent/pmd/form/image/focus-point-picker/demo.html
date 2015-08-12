@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Focus Point Picker Demo</title>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <link  href="bower_components/cropper/dist/cropper.min.css" rel="stylesheet">
+        <script src="bower_components/cropper/dist/cropper.min.js"></script>
+        <script src="src/js/focusPointPicker.js"></script>
+        <link  href="src/css/focusPointPicker.css" rel="stylesheet">
+    </head>
+    <body>
+
+        <h1>Demo 1</h1>
+
+        <img
+            id="focus-point-picker-1"
+            src="http://img.geo.pmdstatic.net/fit/http.3A.2F.2Fapi.2Ephotos.2Egeo.2Efr.2Fphoto.2F1f.2Ffa.2Fb5.2F1558ed0b25e277.2Ejpg/3888x2592/quality/90/15587c68c9edde.jpg"
+            style="width: 600px;"
+        >
+
+        <p id="focus-point-result-1">Result : please, wait ...</p>
+
+        <script>
+            jQuery("#focus-point-picker-1").focusPointPicker(function(result){
+                jQuery('#focus-point-result-1').html('Result : ' + JSON.stringify(result));
+            });
+        </script>
+
+        <h1>Demo 2</h1>
+
+        <form>
+            <input type="file" id="fileInput" accept="image/*"><br />
+            <img
+                id="focus-point-picker-2"
+                src="http://www.geo.fr/var/geo/storage/images/media/images/placeholder/1881904-1-fre-FR/placeholder.png"
+                style="width: 400px;"
+            >
+        </form>
+
+        <p id="focus-point-result-2">Result : please, pick a file ...</p>
+
+        <script>
+            jQuery("#fileInput").change(function(event){
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var img = jQuery('#focus-point-picker-2');
+                    img.attr('src', event.target.result);
+                    img.focusPointPicker(function(result){
+                        jQuery('#focus-point-result-2').html('Result : ' + JSON.stringify(result));
+                    });
+                };
+                reader.readAsDataURL(this.files[0]);
+            });
+        </script>
+
+    </body>
+</html>

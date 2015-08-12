@@ -1,0 +1,23 @@
+{
+  "name": "focus-point-picker",
+  "authors": [
+    "nmoreau@prismamedia.com"
+  ],
+  "description": "Focus Point Picker jQuery plugin",
+  "main": [
+    "src/js/focusPointPicker.js",
+    "src/css/focusPointPicker.css"
+  ],
+  "keywords": [
+    "focuspoint"
+  ],
+  "private": true,
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "./.*"
+  ],
+  "dependencies": {
+    "cropper": "~0.x.x"
+  }
+}
