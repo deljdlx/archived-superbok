@@ -48,14 +48,37 @@ include('../bootstrap.php');
     <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
 
 
-
     <link rel="stylesheet" href="vendor/mdl/material.min.css"></link>
-    <script src="vendor/mdl/material.js"></script>
+    <script src="vendor/mdl/material.min.js"></script>
     <link rel="stylesheet" href="asset/css/material.css"></link>
 
 
 
     <script src="vendor/jquery-2.1.4.min.js"></script>
+
+
+
+
+    <link href="vendor/froala_editor/css/froala_editor.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/froala_editor/css/froala_style.min.css" rel="stylesheet" type="text/css">
+
+    <script src="vendor/froala_editor/js/froala_editor.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="vendor/froala_editor/js/froala_editor_ie8.min.js"></script>
+    <![endif]-->
+    <script src="vendor/froala_editor/js/plugins/tables.min.js"></script>
+    <script src="vendor/froala_editor/js/plugins/lists.min.js"></script>
+    <script src="vendor/froala_editor/js/plugins/char_counter.min.js"></script>
+    <script src="vendor/froala_editor/js/plugins/colors.min.js"></script>
+    <script src="vendor/froala_editor/js/plugins/font_family.min.js"></script>
+    <script src="vendor/froala_editor/js/plugins/font_size.min.js"></script>
+    <script src="vendor/froala_editor/js/plugins/block_styles.min.js"></script>
+    <script src="vendor/froala_editor/js/plugins/video.min.js"></script>
+
+
+
+    <script src="vendor/line-control-master/editor.js"></script>
+
 
 
     <script src="application/Application.js"></script>
@@ -64,11 +87,8 @@ include('../bootstrap.php');
 
 
 
-
-
     <script src="vendor/focus-point-picker/bower_components/cropper/dist/cropper.js"></script>
     <script src="vendor/focus-point-picker/src/js/focusPointPicker.js"></script>
-
 
 
 
@@ -296,8 +316,7 @@ include('../bootstrap.php');
 
             <a class="mdl-navigation__link" href=""><i class="fa fa-2x fa-fw fa-database"></i> Système</a>
 
-            <div class="mdl-layout-spacer"></div>
-            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
+
         </nav>
     </div>
 
@@ -305,13 +324,16 @@ include('../bootstrap.php');
 
     <main class="mdl-layout__content mdl-color--grey-100 mainPanel">
 
-
-        <script>
-
-        </script>
-
-
-
+<!--
+<div class="testMe">hello</div>
+<script>
+    $('.testMe').editable({
+        minHeight: 400,
+        inlineMode: false,
+        multiLine: true
+    })
+</script>
+//-->
 
 
     </main>
