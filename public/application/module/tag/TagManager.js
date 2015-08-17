@@ -1,9 +1,17 @@
 TagManager={
 	getTagFormURL:'module/tag/tagmanager/getForm',
 	dataSourceURL:'module/tag/tagmanager/gettree',
+	saveTagURL:'module/tag/tagmanager/save',
+
 
 	treeNodeSelector:'#tree',
 	formContainerSelector:'.tagForm',
+	inputSelector:'* /deep/ .attribute_value',
+
+	currentNodeId: null,
+
+
+
 
 	captionNodeSelector:'.tagTypeCaption',
 	initialize:function() {
@@ -61,11 +69,14 @@ TagManager={
 			}
 		};
 	},
-	initializeEditor: function() {
-		TagManager.editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
-			lineNumbers: true
-		});
+	getCurrentNodeId: function() {
+		return TagManager.currentNodeId;
 	},
+
+	setCurrentNodeId: function(id) {
+		TagManager.currentNodeId=id;
+	},
+
 	initializeTree: function() {
 
 		TagManager.initializeTreeOptions();
@@ -111,42 +122,87 @@ TagManager={
 			TagManager.displayNodeData(data.node);
 		});
 
-		/*
-		 $('#tree').on("move_node.jstree", function (e, data) {
-		 console.debug(data.node.original);
-		 console.debug(data.node.id);
-		 console.debug(data.parent);
-		 $('#tree').jstree().open_node(data.parent);
-		 });
 
-		 $(document).on('dnd_stop.vakata', function(event, data) {
-		 });
-
-		 */
 	},
 
 	displayNodeData: function(node) {
+
+		TagManager.setCurrentNodeId(node.id);
 
 		$(TagManager.captionNodeSelector).html('Tag : '+node.text+ ' ('+node.original.type+')');
 
 		$.ajax({
 			url:this.getTagFormURL+'?nodeId='+node.id,
 			success: function(data) {
-
-				console.debug(data);
-
-				TagManager.formContainer.html('');
-
-				for(var name in data) {
-					TagManager.formContainer.append(data[name]);
-				}
+				TagManager.displayForm(data);
 			}
+		})
+	},
+
+
+
+	sendFormData: function(form) {
+		var valueNodes=form.querySelectorAll(TagManager.inputSelector);
+
+		var properties={};
+		for(var i=0; i<valueNodes.length; i++) {
+			properties[valueNodes[i].getAttribute('name')]=valueNodes[i].value;
+		}
+
+		var data= {
+			nodeId: TagManager.getCurrentNodeId(),
+			properties: properties
+		}
+
+
+		console.debug(data);
+
+		$.ajax({
+			method: 'post',
+			url: TagManager.saveTagURL,
+			data: data,
+			success: function(data) {
+				console.debug(data);
+			}
+		})
+	},
+
+	displayForm: function(data) {
+		TagManager.formContainer.html('');
+
+
+		var form=document.createElement('form');
+
+		jQuery(form).submit(function() {
+			TagManager.sendFormData(this);
+			return false;
 		})
 
 
+		for(var name in data) {
+			jQuery(form).append(data[name]);
+		}
 
 
+
+
+		var button=document.createElement('button');
+		button.className='mdl-button mdl-js-button mdl-button--icon';
+		button.innerHTML='<i class="fa fa-check"></i>';
+
+		var buttonContainer=document.createElement('div');
+		buttonContainer.className='pmd form container submit';
+		buttonContainer.appendChild(button)
+
+		jQuery(form).append(buttonContainer);
+
+		TagManager.formContainer.append(form);
+
+		if(typeof(componentHandler)!='undefined') {
+			componentHandler.upgradeElement(button);
+		}
 	}
+
 };
 
 

@@ -59,25 +59,6 @@ include('../bootstrap.php');
 
 
 
-    <link href="vendor/froala_editor/css/froala_editor.min.css" rel="stylesheet" type="text/css">
-    <link href="vendor/froala_editor/css/froala_style.min.css" rel="stylesheet" type="text/css">
-
-    <script src="vendor/froala_editor/js/froala_editor.min.js"></script>
-    <!--[if lt IE 9]>
-    <script src="vendor/froala_editor/js/froala_editor_ie8.min.js"></script>
-    <![endif]-->
-    <script src="vendor/froala_editor/js/plugins/tables.min.js"></script>
-    <script src="vendor/froala_editor/js/plugins/lists.min.js"></script>
-    <script src="vendor/froala_editor/js/plugins/char_counter.min.js"></script>
-    <script src="vendor/froala_editor/js/plugins/colors.min.js"></script>
-    <script src="vendor/froala_editor/js/plugins/font_family.min.js"></script>
-    <script src="vendor/froala_editor/js/plugins/font_size.min.js"></script>
-    <script src="vendor/froala_editor/js/plugins/block_styles.min.js"></script>
-    <script src="vendor/froala_editor/js/plugins/video.min.js"></script>
-
-
-
-    <script src="vendor/line-control-master/editor.js"></script>
 
 
 
@@ -94,6 +75,8 @@ include('../bootstrap.php');
 
     <script src="asset/webcomponent/pmd/form/image/component.js"></script>
     <script src="asset/webcomponent/pmd/form/text/component.js"></script>
+    <script src="asset/webcomponent/pmd/form/integer/component.js"></script>
+    <script src="asset/webcomponent/pmd/form/boolean/component.js"></script>
 
 
 
@@ -188,6 +171,14 @@ include('../bootstrap.php');
 
     <style>
 
+        .pmd.form.container.submit {
+            text-align: right;
+            margin: 10px;
+        }
+
+
+
+
        .jstree-icon.tag-category:before {
            content: "\f07b";
        }
@@ -209,6 +200,10 @@ include('../bootstrap.php');
 
 
 
+
+       * /deep/ .mdl-textfield {
+           width:100%;
+       }
 
        .mdl-card__supporting-text {
            width:100%;
@@ -278,7 +273,10 @@ include('../bootstrap.php');
 
     <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <header class="demo-drawer-header">
-            <img src="images/user.jpg" class="demo-avatar">
+
+
+
+
             <div class="demo-avatar-dropdown">
                 <span>hello@example.com</span>
                 <div class="mdl-layout-spacer"></div>

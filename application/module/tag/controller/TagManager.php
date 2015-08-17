@@ -73,15 +73,38 @@ class TagManager extends Controller
 
 
 
-        $inputs=array();
-        foreach ($attributes->attributes as $name=>$attribute) {
-            $renderer=new AttributeRenderer($attribute);
-            $inputs[$name]=$renderer->toWebComponent('', 'pmd-form');
+        $values=json_decode($tag->getValue('data'), true);
+
+        if($values) {
+            $tag->setInheritableAttributesRawValues($values);
         }
 
-        $data=json_decode($tag->getValue('data'));
+
+
+        $values=$tag->getInheritedAttributesValues();
+
+
+
+
+        $inputs=array();
+        foreach ($values['attributes'] as $name=>&$attribute) {
+
+
+            $renderer=new AttributeRenderer($name, $attribute);
+            $inputs[$name]=$renderer->toWebComponent('pmd-form');
+        }
 
         return $inputs;
+    }
+
+
+    public function save($tagId, $attributes) {
+        $tag=new Tag($this->getDataSource());
+        $tag->loadById((int) $tagId);
+        $tag->setInheritableAttributesValues(array('attributes'=>$attributes));
+        $tag->update();
+
+        return $tag->getInheritedAttributesValues();
 
     }
 

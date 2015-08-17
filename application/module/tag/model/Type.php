@@ -1,13 +1,14 @@
 <?php
 namespace PMD\Capital\Module\Tag\Model;
 use PMD\Capital\Model\DatabaseElement;
+use PMD\Capital\Model\HasInheritableAttribute;
 use PMD\Capital\Model\Tree;
 use PMD\Capital\Model\InheritableAttribute;
 
 class Type extends DatabaseElement
 {
 
-    use InheritableAttribute;
+    use HasInheritableAttribute;
 
     protected $values=array(
         'id'=>null,

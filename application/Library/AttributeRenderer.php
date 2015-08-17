@@ -9,22 +9,25 @@ class AttributeRenderer
 
     protected $attribute;
 
-    public function __construct($attribute) {
+    public function __construct($name, $attribute) {
+        $this->name=$name;
         $this->attribute=$attribute;
     }
 
 
-    public function toWebComponent($value='', $prefix='pmd') {
+    public function toWebComponent($prefix='pmd') {
+
 
         $buffer='';
 
-            $buffer.='<'.$prefix.'-'.$this->attribute->type;
-            if(isset($this->attribute->subtype)) {
-                $buffer.=' is="'.$this->attribute->subtype.'"';
+            $buffer.='<'.$prefix.'-'.$this->attribute['type'].' data-name="'.$this->name.'"';
+            if(isset($this->attribute['subtype'])) {
+                $buffer.=' is="'.$this->attribute['subtype'].'"';
             }
-            $buffer.=' data-value="'.htmlentities(json_encode($value), ENT_COMPAT).'"';
+
 
             foreach ($this->attribute as $name=>$value) {
+
                 $buffer.=' data-'.$name.'="'.htmlentities($value).'"';
             }
 
@@ -32,7 +35,7 @@ class AttributeRenderer
         $buffer.='>';
 
 
-        $buffer.='</'.$prefix.'-'.$this->attribute->type.'>';
+        $buffer.='</'.$prefix.'-'.$this->attribute['type'].'>';
 
 
         return $buffer;

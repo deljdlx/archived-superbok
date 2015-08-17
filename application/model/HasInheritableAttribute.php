@@ -5,7 +5,7 @@ namespace PMD\Capital\Model;
 
 
 
-Trait InheritableAttribute
+Trait HasInheritableAttribute
 {
 
     use Tree;
@@ -19,17 +19,18 @@ Trait InheritableAttribute
     }
 
 
-    public function getInheritableAttributes($returnArray=false) {
+    public function getInheritableAttributes($returnObject=false) {
         if($this->inheritableAttributes===null) {
             $this->inheritableAttributes=array();
             $this->loadInheritableAttributes();
         }
 
-        if($returnArray) {
-            return json_decode(json_encode($this->inheritableAttributes), true); //convert object to array
+        if($returnObject) {
+            return $this->inheritableAttributes;
         }
         else {
-            return $this->inheritableAttributes;
+            return json_decode(json_encode($this->inheritableAttributes), true); //convert object to array
+
         }
 
     }
@@ -45,7 +46,6 @@ Trait InheritableAttribute
 
         foreach ($parents as $parent) {
             $parentAttributesData=$parent->getValue(static::getDataFieldName());
-
 
             if($parentAttributes=json_decode($parentAttributesData, true)) {
                 $attributes=array_replace_recursive($attributes, $parentAttributes);

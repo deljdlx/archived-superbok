@@ -66,14 +66,15 @@ if(preg_match('`moduleview/+`', $uri)) {
 if(preg_match('`module/.+?/.+?/.+?`', $uri)) {
     $moduleName=preg_replace('`.*?/module/(.*?)/.*`', '$1', $uri);
     $controllerName=preg_replace('`.*?/module/.*?/(.*?)/.*`', '$1', $uri);
-    $methodName=preg_replace('`.*?/module/.+?/.+?/([^?]+?)\?.*`', '$1', $uri);
+    $methodName=preg_replace('`.*?/module/.+?/.+?/([^?]+?)((\?.*)|$)`', '$1', $uri);
 
 
 
     $fullControllerName='\PMD\Capital\Module\\'.$moduleName.'\Controller\\'.$controllerName;
 
 
-    $parameters=$_GET;
+    $parameters=array_merge($_GET, $_POST);
+
     $controller=new $fullControllerName();
     $data=call_user_func_array(array($controller, $methodName), $parameters);
 

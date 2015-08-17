@@ -42,7 +42,7 @@ abstract class  DatabaseElement
     }
 
     public function getModificationDateFieldName() {
-        return 'datemodificationn';
+        return 'datemodification';
     }
 
 
@@ -144,7 +144,6 @@ abstract class  DatabaseElement
 
     public function update() {
 
-
         if(array_key_exists($this->getModificationDateFieldName(), $this->values) && !$this->skipUpdateTimestamp && !isset($this->values[$this->getModificationDateFieldName()])) {
             $this->values[$this->getModificationDateFieldName()]=date('Y-m-d H:i:s');
         }
@@ -164,7 +163,6 @@ abstract class  DatabaseElement
             UPDATE ".static::getTableName()." SET ".implode(',', $updateStrings)."
             WHERE ".static::getPrimaryKeyFieldName()."=".$this->getGetPrimaryKeyValue()
         ;
-
         $this->query($query);
 
         return $this;

@@ -1,6 +1,7 @@
 <?php
 namespace PMD\Capital\Module\Tag\Model;
 use PMD\Capital\Model\DatabaseElement;
+use PMD\Capital\Model\HasInheritedAttributeValues;
 use PMD\Capital\Model\Tree;
 
 class Tag extends DatabaseElement
@@ -8,6 +9,7 @@ class Tag extends DatabaseElement
 
 
     use Tree;
+    use HasInheritedAttributeValues;
 
 
     protected $type=null;
@@ -23,6 +25,8 @@ class Tag extends DatabaseElement
         'datecreation'=>null,
         'datemodification'=>null,
     );
+
+
 
 
     public static function getTableName() {
@@ -45,6 +49,22 @@ class Tag extends DatabaseElement
 
 
 
+
+    public function getInheritableAttributes() {
+           return $this->getType()->getInheritableAttributes();
+    }
+
+
+    public function update() {
+        $this->setValue('data', json_encode($this->getInheritedAttributesValues(), JSON_PRETTY_PRINT));
+        parent::update();
+        return $this;
+    }
+
+
+    public function loadById($id) {
+        parent::loadById($id);
+    }
 
 
 

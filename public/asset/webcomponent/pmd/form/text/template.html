@@ -1,34 +1,39 @@
-    <template class="template pmd form text">
-    <style>
-    @import url(vendor/mdl/material.min.css);
+<template class="template pmd form text">
 
-    @import url(vendor/froala_editor/css/froala_editor.min.css);
-    @import url(vendor/froala_editor/css/froala_style.min.css);
-    @import url(vendor/font-awesome/css/font-awesome.min.css);
-
-
-    @import url(http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css);
-
-
-    @import url(vendor/line-control-master/editor.css);
+    <template class="simple">
+        <style>
+        @import url(vendor/mdl/material.min.css);
+        .pmd.form.text.html {
+            border: solid 1px #ccc;
+        }
+        </style>
 
 
 
-    .pmd.form.text.html {
-        border: solid 1px #ccc;
-    }
-
-    </style>
-
-
-
-        <div>
-            <div class="mdl-textfield mdl-js-textfield">
-                <label class="mdl-textfield__label" for="sample1"></label>
-                <input class="mdl-textfield__input" type="text" id="sample1" />
-
-            </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label class="mdl-textfield__label" for="input"></label>
+            <input class="mdl-textfield__input attribute_value" type="text" id="input" />
         </div>
+    </template>
+
+
+    <template class="html">
+        <style>
+            @import url(vendor/mdl/material.min.css);
+            .pmd.form.text.html {
+                border: solid 1px #ccc;
+            }
+        </style>
+
+
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <label class="mdl-textfield__label" for="input"></label>
+            <textarea class="mdl-textfield__input attribute_value" type="text" rows= "10" id="input"></textarea>
+        </div>
+    </template>
+
+
 
 
 </template>
