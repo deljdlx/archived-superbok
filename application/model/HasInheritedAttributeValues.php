@@ -20,6 +20,7 @@ Trait HasInheritedAttributeValues
 
 
     public function setInheritableAttributesValues($values) {
+
         $objectProperties=$this->getInheritableAttributes();
 
         array_walk_recursive($values, function(&$value, $name) {

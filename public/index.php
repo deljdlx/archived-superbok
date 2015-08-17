@@ -192,6 +192,11 @@ include('../bootstrap.php');
            content: "\f02b  ";
        }
 
+        .jstree-icon.tag-isin:before {
+            content: "\f129  ";
+        }
+
+
 
        .jstree-contextmenu {
            z-index:1000;

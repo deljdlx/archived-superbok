@@ -76,6 +76,11 @@ if(preg_match('`module/.+?/.+?/.+?`', $uri)) {
     $parameters=array_merge($_GET, $_POST);
 
     $controller=new $fullControllerName();
+
+
+    //print_r($parameters);
+    //die('EXIT '.__FILE__.'@'.__LINE__);
+
     $data=call_user_func_array(array($controller, $methodName), $parameters);
 
     header('Content-type: application/json; charset="utf-8"');

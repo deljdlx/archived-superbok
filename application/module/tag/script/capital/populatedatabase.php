@@ -80,19 +80,25 @@ $query="
         "listed": {
             "caption" : "Entreprise cotée",
             "mandatory": false,
-            "type": "bool",
+            "type": "boolean",
             "default": false
         },
-        "sixId": {
-            "caption" : "ID Six",
+        "assetId": {
+            "caption" : "Asset ID",
             "mandatory": false,
-            "type": "int",
+            "type": "integer",
+            "default": null
+        },
+        "sixId": {
+            "caption" : "Six ID",
+            "mandatory": false,
+            "type": "text",
             "default": null
         },
         "cofisemId": {
-            "caption" : "ID Cofisem",
+            "caption" : "Cofisem ID",
             "mandatory": false,
-            "type": "int",
+            "type": "integer",
             "default": null
         }
     },
@@ -107,6 +113,27 @@ $tagDataSource->query($query);
 
 
 
+
+echo "Create ISIN tag type\n";
+
+
+$entrepriseTagType=new Type($tagDataSource);
+$entrepriseTagType->loadBy('qname', 'company');
+
+$query="
+  INSERT INTO ".Type::getTableName()." (
+    parent_id,
+    qname,
+    caption,
+    datecreation
+  ) VALUES (
+    ".$contentTagId.",
+    'isin',
+    'Code ISIN',
+    NOW()
+  )
+";
+$tagDataSource->query($query);
 
 
 

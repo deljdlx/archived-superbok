@@ -35,7 +35,7 @@ class TagManager extends Controller
 
             $childrenExists=$child->childrenExists();
 
-            if(!$child->getValue('mastertag_id')) {
+            //if(!$child->getValue('mastertag_id')) {
 
                 $type=$child->getType();
                 $icon='fa tag-'.$type->getValue('qname');
@@ -50,7 +50,7 @@ class TagManager extends Controller
                     'icon'=>$icon,
                     'data'=>$child->getValue('data'),
                 );
-            }
+            //}
         }
 
         ksort($nodes);
@@ -66,23 +66,8 @@ class TagManager extends Controller
         $tag=new Tag($this->getDataSource());
         $tag->loadById((int) $nodeId);
 
-        $type=$tag->getType();
-
-        $attributes=$type->getInheritableAttributes();
-
-
-
-
-        $values=json_decode($tag->getValue('data'), true);
-
-        if($values) {
-            $tag->setInheritableAttributesRawValues($values);
-        }
-
-
 
         $values=$tag->getInheritedAttributesValues();
-
 
 
 

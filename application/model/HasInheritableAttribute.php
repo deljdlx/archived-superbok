@@ -47,12 +47,17 @@ Trait HasInheritableAttribute
         foreach ($parents as $parent) {
             $parentAttributesData=$parent->getValue(static::getDataFieldName());
 
+
             if($parentAttributes=json_decode($parentAttributesData, true)) {
                 $attributes=array_replace_recursive($attributes, $parentAttributes);
             }
         }
 
+
         if($nodeAttributes=json_decode($this->getValue(static::getDataFieldName()), true)) {
+
+
+
             $attributes=array_replace_recursive($attributes, $nodeAttributes);
         }
 

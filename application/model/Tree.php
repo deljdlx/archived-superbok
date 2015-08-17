@@ -7,9 +7,13 @@ Trait Tree
 {
 
     protected $children=null;
+    protected $allChildren=null;
+
+
     protected $childrenExist=null;
 
     protected $parents=null;
+    protected $parent=null;
 
 
     abstract public static function getTableName();
@@ -51,10 +55,16 @@ Trait Tree
 
     public function getChildren($all=false) {
 
+        if($all) {
+            if($this->allChildren===null) {
+                $this->loadChildren($all);
+            }
+            return $this->allChildren;
+        }
+
         if($this->children===null) {
             $this->loadChildren($all);
         }
-
 
         return $this->children;
     }
@@ -121,6 +131,7 @@ Trait Tree
             $nodes[$row[$this->getPrimaryKeyFieldName()]]=$node;
         }
 
+
         foreach ($nodes as $node) {
 
             if($node->getValue($this->getParentIdFieldName())==$this->getValue($this->getPrimaryKeyFieldName())) {
@@ -130,6 +141,15 @@ Trait Tree
                 $nodes[$node->getValue($this->getParentIdFieldName())]->addChild($node);
             }
         }
+
+        if($all) {
+            $this->allChildren=array_values($nodes);
+        }
+
+
+
+
+
     }
 
 
@@ -137,6 +157,45 @@ Trait Tree
     public function addChild($node) {
         $this->children[]=$node;
     }
+
+
+    public function getParent() {
+        if($this->parent===null) {
+            $this->parent=array();
+            $this->loadParent();
+        }
+        return $this->parent;
+    }
+
+    public function loadParent() {
+
+
+        if(is_array($this->values)) {
+            $fieldNames = array_keys($this->values);
+            $selectedFields = array();
+            foreach ($fieldNames as $name) {
+                $selectedFields[] = 'node.' . $name;
+            }
+
+            $query = "
+                    SELECT
+                      " . implode(',', $selectedFields) . "
+                    FROM " . static::getTableName() . " node
+                        WHERE node." . $this->getPrimaryKeyFieldName() . "=" . $this->values[$this->getParentIdFieldName()] . "
+                ";
+
+
+            $values = $this->queryAndFetchOne($query);
+
+            $node = new Static($this->getSource());
+            $node->setValues($values);
+            $this->parent = $node;
+        }
+        return $this;
+    }
+
+
+
 
 
 
@@ -151,29 +210,32 @@ Trait Tree
 
     public function loadParents() {
 
-        $fieldNames=array_keys($this->values);
-        $selectedFields=array();
-        foreach ($fieldNames as $name) {
-            $selectedFields[]='node.'.$name;
-        }
 
-        $query = "
-            SELECT
-              " . implode(',', $selectedFields) . "
-            FROM " . static::getTableName() . " root
-                JOIN " . static::getTableName() . " node
-                    ON root." . $this->getLeftBoundFieldName() . ">node." . $this->getLeftBoundFieldName() . "
-                    AND root." . $this->getRightBoundFieldName() . "<node." . $this->getRightBoundFieldName() . "
-                WHERE root." . $this->getPrimaryKeyFieldName() . "=" . $this->values[$this->getPrimaryKeyFieldName()] . "
-                ORDER BY ".$this->getLeftBoundFieldName()." DESC
-        ";
+        if(is_array($this->values)) {
+            $fieldNames = array_keys($this->values);
+            $selectedFields = array();
+            foreach ($fieldNames as $name) {
+                $selectedFields[] = 'node.' . $name;
+            }
 
-        $rows=$this->queryAndFetch($query);
+            $query = "
+                    SELECT
+                      " . implode(',', $selectedFields) . "
+                    FROM " . static::getTableName() . " root
+                        JOIN " . static::getTableName() . " node
+                            ON root." . $this->getLeftBoundFieldName() . ">node." . $this->getLeftBoundFieldName() . "
+                            AND root." . $this->getRightBoundFieldName() . "<node." . $this->getRightBoundFieldName() . "
+                        WHERE root." . $this->getPrimaryKeyFieldName() . "=" . $this->values[$this->getPrimaryKeyFieldName()] . "
+                        ORDER BY " . $this->getLeftBoundFieldName() . " DESC
+                ";
 
-        foreach ($rows as $values) {
-            $node=new Static($this->getSource());
-            $node->setValues($values);
-            $this->parents[]=$node;
+            $rows = $this->queryAndFetch($query);
+
+            foreach ($rows as $values) {
+                $node = new Static($this->getSource());
+                $node->setValues($values);
+                $this->parents[] = $node;
+            }
         }
         return $this;
     }

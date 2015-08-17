@@ -35,11 +35,25 @@ foreach ($children as $child) {
     $child->setValue('type_id', $types['category']['id']);
     $child->update();
 
+
+    echo $child->getValue('caption')."\n";
+
     if($child->getValue('caption')=='Entreprise') {
         $entreprises=$child->getChildren(true);
+
         foreach ($entreprises as $entreprise) {
-            $entreprise->setValue('type_id', $types['company']['id']);
+
+            echo "\t".$entreprise->getValue('caption')."\n";
+
+            if(preg_match('`\w{2}\w{10}`', $entreprise->getValue('caption')) && $entreprise->getValue('mastertag_id')) {
+                $entreprise->setValue('type_id', $types['isin']['id']);
+            }
+            else {
+                $entreprise->setValue('type_id', $types['company']['id']);
+            }
             $entreprise->update();
+
+
         }
     }
     elseif($child->getValue('caption')=='Personnalité') {

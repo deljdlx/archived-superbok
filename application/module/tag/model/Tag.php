@@ -55,6 +55,59 @@ class Tag extends DatabaseElement
     }
 
 
+    public function getInheritedAttributesValues() {
+
+        if(empty($this->inheritableAttributesValues)) {
+
+            //vérifie que le tag a bien un type , car un nouveau tag peut ne pas avoir encore de type
+            //si le tag n'a pas de type définit, alors il ne peut pas avoir de valeurs héritées
+            if($type=$this->getType()) {
+                if ($type->getId()) {
+                    $this->inheritableAttributesValues = $type->getInheritableAttributes();
+                }
+            }
+            else {
+                $this->inheritableAttributesValues=array();
+            }
+        }
+
+        if($data=json_decode($this->getValue('data'), true)) {
+            $this->inheritableAttributesValues=array_replace_recursive($this->inheritableAttributesValues, $data);
+        }
+
+
+        return $this->inheritableAttributesValues;
+    }
+
+
+    public function setInheritableAttributesValues($values, $remplace=false) {
+
+        $objectProperties=$this->getInheritableAttributes();
+
+
+        array_walk_recursive($values, function(&$value, $name) {
+            $value=array(
+                'value'=>$value
+            );
+        });
+
+
+        if(!$remplace) {
+            if ($currentValues = json_decode($this->getValue('data'), true)) {
+                $this->inheritableAttributesValues = array_replace_recursive($objectProperties, $currentValues);
+            }
+        }
+        else {
+            $this->inheritableAttributesValues = $objectProperties;
+        }
+
+
+        $this->inheritableAttributesValues=array_replace_recursive($this->inheritableAttributesValues, $values);
+        return $this;
+    }
+
+
+
     public function update() {
         $this->setValue('data', json_encode($this->getInheritedAttributesValues(), JSON_PRETTY_PRINT));
         parent::update();

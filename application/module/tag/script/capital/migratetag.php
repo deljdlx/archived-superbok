@@ -88,10 +88,23 @@ foreach ($newTagMapping as $oldId=>$newId) {
     $tag->loadById($newId);
 
 
+    if($oldTags[$oldId]['main_tag_id']) {
+        $oldParentId=$oldTags[$oldId]['main_tag_id'];
+    }
+    else {
+        $oldParentId=$oldTags[$oldId]['parent_id'];
+    }
 
-    $oldParentId=$oldTags[$oldId]['parent_id'];
 
-    $parentTagId=$newTagMapping[$oldParentId];
+
+    $parentTagId=false;
+
+
+
+    if(isset($newTagMapping[$oldParentId])) {
+        $parentTagId=$newTagMapping[$oldParentId];
+    }
+
 
 
 
@@ -99,18 +112,18 @@ foreach ($newTagMapping as $oldId=>$newId) {
         $parentTagId=$rootTag->getId();
     }
 
+    echo $oldParentId."\t".$parentTagId."\t".$oldTags[$oldId]['keyword']."\n";
+
+
     if($oldTags[$oldId]['main_tag_id']) {
         $oldMasterTagId=$oldTags[$oldId]['main_tag_id'];
         $tag->setMasterTagId($newTagMapping[$oldMasterTagId]);
     }
 
 
-
-    echo $oldParentId."\t".$parentTagId."\t".$oldTags[$oldId]['keyword']."\n";
-
-
     $tag->setParentId($parentTagId);
     $tag->update();
+
 }
 
 

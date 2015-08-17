@@ -38,9 +38,12 @@
 
 				$(this.rootElement.querySelector('.attribute_value')).val(this.getAttribute('data-value'));
 
+
+				/*allowing only numbers
 				$(this.rootElement.querySelector('.attribute_value')).keyup(function (e) {
 					this.value=this.value.replace(/\D/gi, '');
 				});
+				*/
 
 
 
