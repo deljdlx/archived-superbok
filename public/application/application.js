@@ -12,6 +12,7 @@ function Application() {
 Application.modules={};
 
 
+
 Application.prototype.start=function() {
 	this.route();
 }
