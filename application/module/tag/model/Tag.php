@@ -71,8 +71,10 @@ class Tag extends DatabaseElement
             }
         }
 
+
+        //on merge les valeurs avec la descriptions des attributs hérités
         if($data=json_decode($this->getValue('data'), true)) {
-            $this->inheritableAttributesValues=array_replace_recursive($this->inheritableAttributesValues, $data);
+            $this->inheritableAttributesValues=array_replace_recursive($data, $this->inheritableAttributesValues);
         }
 
 
@@ -92,12 +94,15 @@ class Tag extends DatabaseElement
         });
 
 
+        //on merge les valeurs avec la descriptions des attributs hérités
         if(!$remplace) {
+            //si l'on n'écrase pas les valeurs, on merge les attributs hérités avec les valeurs courantes
             if ($currentValues = json_decode($this->getValue('data'), true)) {
-                $this->inheritableAttributesValues = array_replace_recursive($objectProperties, $currentValues);
+                $this->inheritableAttributesValues = array_replace_recursive($currentValues, $objectProperties);
             }
         }
         else {
+            //sinon on reset les valeurs en initialisant juste avec les propriété de l'attribut
             $this->inheritableAttributesValues = $objectProperties;
         }
 
@@ -109,7 +114,10 @@ class Tag extends DatabaseElement
 
 
     public function update() {
-        $this->setValue('data', json_encode($this->getInheritedAttributesValues(), JSON_PRETTY_PRINT));
+
+        $values=json_encode($this->getInheritedAttributesValues(), JSON_PRETTY_PRINT);
+
+        $this->setValue('data', $values);
         parent::update();
         return $this;
     }

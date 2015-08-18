@@ -139,3 +139,7 @@ Application.prototype.loadModule=function(moduleName, request) {
 Application.prototype.ajax=function(options) {
 	return $.ajax(options);
 }
+
+
+
+

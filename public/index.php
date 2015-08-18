@@ -43,6 +43,12 @@ include('../bootstrap.php');
 
 
 
+
+
+
+
+
+
     <script src="vendor/webcomponents.min.js"></script>
 
     <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
@@ -58,12 +64,22 @@ include('../bootstrap.php');
 
 
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
 
 
 
 
     <script src="application/Application.js"></script>
     <script src="application/Module.js"></script>
+    <script src="application/plugin/Modal.js"></script>
+
 
 
 
@@ -234,8 +250,8 @@ include('../bootstrap.php');
            height: 100%;
        }
 
-        .demo-graphs {
-            height:calc(100% - 20px);
+        .tag-tree-container {
+            height: 800px;
             /*height: 100% !important;*/
             overflow: auto;
         }
@@ -320,6 +336,14 @@ include('../bootstrap.php');
             <a class="mdl-navigation__link" href=""><i class="fa fa-2x fa-fw fa-database"></i> Système</a>
 
 
+            <hr/>
+
+
+
+
+
+
+
         </nav>
     </div>
 
@@ -327,20 +351,25 @@ include('../bootstrap.php');
 
     <main class="mdl-layout__content mdl-color--grey-100 mainPanel">
 
-<!--
-<div class="testMe">hello</div>
-<script>
-    $('.testMe').editable({
-        minHeight: 400,
-        inlineMode: false,
-        multiLine: true
-    })
-</script>
-//-->
+
+
+
 
 
     </main>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <script>

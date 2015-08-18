@@ -29,22 +29,42 @@ TagManager={
 		//TagManager.initializeEditor();
 	},
 
+
+	showCreateTagForm: function(parentNode) {
+
+
+		var tree = $(TagManager.treeNodeSelector).jstree(true);
+
+		tree.open_node(parentNode);
+
+
+		var newNode = tree.create_node(parentNode, {
+			text:"new node",
+			icon :'fa fa-tag'
+		});
+		tree.edit(newNode);
+		console.debug(newNode);
+
+
+
+		TagManager.application.modal.show();
+	},
+
 	initializeTreeOptions:function() {
 		$.jstree.defaults.contextmenu={
-			"items" : function($node) {
-				var tree = TagManager.tree.jstree(true);
+			"items" : function(selectedNode) {
+
+				console.debug(selectedNode);
+
+				var tree = $(TagManager.treeNodeSelector).jstree(true);
 				return {
 					"Create": {
 						"separator_before": false,
 						"separator_after": false,
 						"label": "Créer",
 						'icon': 'fa fa-plus',
-						"action": function (obj) {
-							$node = tree.create_node($node, {
-								text:"caca",
-								icon :'fa fa-tag'
-							});
-							tree.edit($node);
+						"action": function (item) {
+							TagManager.showCreateTagForm(selectedNode);
 						}
 					},
 					"Rename": {
@@ -52,8 +72,8 @@ TagManager={
 						"separator_after": false,
 						"label": "Renommer",
 						'icon': 'fa fa-pencil',
-						"action": function (obj) {
-							tree.edit($node);
+						"action": function (item) {
+							tree.edit(selectedNode);
 						}
 					},
 					"Remove": {
@@ -61,8 +81,8 @@ TagManager={
 						"separator_after": false,
 						"label": "Effacer",
 						'icon': 'fa fa-minus',
-						"action": function (obj) {
-							tree.delete_node($node);
+						"action": function (item) {
+							tree.delete_node(selectedNode);
 						}
 					}
 				};
@@ -79,11 +99,10 @@ TagManager={
 
 	initializeTree: function() {
 
-		TagManager.initializeTreeOptions();
-
-		console.debug(TagManager.treeNodeSelector);
-
 		$(TagManager.treeNodeSelector).jstree('destroy');
+
+
+		TagManager.initializeTreeOptions();
 
 
 		TagManager.tree=$(TagManager.treeNodeSelector).jstree({
@@ -117,6 +136,11 @@ TagManager={
 			},
 			"plugins" : ["contextmenu"]
 		});
+
+
+		//TagManager.tree=$(TagManager.treeNodeSelector).jstree(true);
+
+		//console.debug(TagManager.tree);
 
 		TagManager.tree.on("select_node.jstree", function (e, data) {
 			TagManager.displayNodeData(data.node);
