@@ -87,6 +87,15 @@ class Tag extends DatabaseElement
         $objectProperties=$this->getInheritableAttributes();
 
 
+        /*
+         * transformation d'une structure array('attributeName'=>$value)
+         * vers une structure du type
+         *
+         * array('attributeName'=>array(
+         *  'value'=>$value
+         * )
+         */
+
         array_walk_recursive($values, function(&$value, $name) {
             $value=array(
                 'value'=>$value
@@ -107,7 +116,12 @@ class Tag extends DatabaseElement
         }
 
 
+
         $this->inheritableAttributesValues=array_replace_recursive($this->inheritableAttributesValues, $values);
+
+        $this->setValue('data', json_encode($this->inheritableAttributesValues, JSON_PRETTY_PRINT));
+
+
         return $this;
     }
 

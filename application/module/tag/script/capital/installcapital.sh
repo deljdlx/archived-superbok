@@ -13,6 +13,9 @@ php cronjob.php application/module/tag/script/capital/company/setcofisemid.php
 php cronjob.php application/module/tag/script/capital/company/setsixid.php
 
 
+php cronjob.php application/module/tag/script/capital/migratepagehubassociation.php
+
+
 php cronjob.php application/module/tag/script/capital/associatetag.php
 
 

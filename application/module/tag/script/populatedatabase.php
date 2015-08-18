@@ -12,7 +12,6 @@ $tagDataSource=DataSource::get('new');
 
 
 
-
 echo "Create default association type\n";
 $query="
         INSERT INTO ".AssociationType::getTableName()." (
@@ -21,11 +20,30 @@ $query="
           datecreation
         ) VALUES (
           'default',
-          'Basique'
+          'Association par défaut',
           NOW()
         );
 ";
 $tagDataSource->query($query);
+
+
+
+
+echo "Create related object association type\n";
+$query="
+        INSERT INTO ".AssociationType::getTableName()." (
+          qname,
+          caption,
+          datecreation
+        ) VALUES (
+          'related',
+          'Relation de contenu',
+          NOW()
+        );
+";
+$tagDataSource->query($query);
+
+
 
 
 

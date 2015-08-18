@@ -1,5 +1,5 @@
 <?php
-include('../bootstrap.php');
+include('../index.php');
 ?>
 
 
@@ -63,14 +63,11 @@ include('../bootstrap.php');
     <script src="vendor/jquery-2.1.4.min.js"></script>
 
 
-
-    <!-- Latest compiled and minified CSS -->
+<!--
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+//-->
 
 
 
@@ -187,7 +184,7 @@ include('../bootstrap.php');
 
     <style>
 
-        .pmd.form.container.submit {
+        .pmd-form-container-submit {
             text-align: right;
             margin: 10px;
         }

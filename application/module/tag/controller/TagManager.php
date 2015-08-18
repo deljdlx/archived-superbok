@@ -86,7 +86,8 @@ class TagManager extends Controller
     public function save($tagId, $attributes) {
         $tag=new Tag($this->getDataSource());
         $tag->loadById((int) $tagId);
-        $tag->setInheritableAttributesValues(array('attributes'=>$attributes));
+        $tag->setInheritableAttributesValues(array('attributes'=>$attributes), true);
+
         $tag->update();
 
         return $tag->getInheritedAttributesValues();

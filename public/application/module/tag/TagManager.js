@@ -170,7 +170,15 @@ TagManager={
 
 		var properties={};
 		for(var i=0; i<valueNodes.length; i++) {
-			properties[valueNodes[i].getAttribute('name')]=valueNodes[i].value;
+			if(valueNodes[i].getAttribute('type')!='checkbox') {
+				properties[valueNodes[i].getAttribute('name')]=valueNodes[i].value;
+			}
+			else {
+				if(valueNodes[i].checked) {
+					properties[valueNodes[i].getAttribute('name')]=valueNodes[i].value;
+				}
+			}
+
 		}
 
 		var data= {
@@ -215,7 +223,7 @@ TagManager={
 		button.innerHTML='<i class="fa fa-check"></i>';
 
 		var buttonContainer=document.createElement('div');
-		buttonContainer.className='pmd form container submit';
+		buttonContainer.className='pmd-form-container-submit';
 		buttonContainer.appendChild(button)
 
 		jQuery(form).append(buttonContainer);
