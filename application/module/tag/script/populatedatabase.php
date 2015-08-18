@@ -129,20 +129,23 @@ $rootTypeNode->setValue('data','{
             "caption": "Image",
             "mandatory": false,
             "type": "image",
-            "default": null
+            "default": null,
+            "enable": true
         },
         "title": {
             "caption": "Titre",
             "mandatory": false,
             "type": "text",
-            "default": null
+            "default": null,
+            "enable": true
         },
         "description": {
             "caption": "Description",
             "mandatory": false,
             "type": "text",
             "subtype": "html",
-            "default": null
+            "default": null,
+            "enable": true
         }
     },
     "rules": []

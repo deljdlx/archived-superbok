@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5d5e1c07-5fa8-4fc3-a54b-fb02fb9cbb97" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/application/Application.js" afterPath="$PROJECT_DIR$/public/application/Application.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/application/Module.js" afterPath="$PROJECT_DIR$/public/application/Module.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap.php" afterPath="$PROJECT_DIR$/bootstrap.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.php" afterPath="$PROJECT_DIR$/public/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="5d5e1c07-5fa8-4fc3-a54b-fb02fb9cbb97" name="Default" comment="" />
     <ignored path="superbok.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -53,10 +46,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="createtagassociationtype.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="populatedatabase.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/capital/populatedatabase.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="106" column="26" selection-start="2246" selection-end="2246" vertical-scroll-proportion="-32.76" vertical-offset="797" max-vertical-offset="3056">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="createtagassociationtype.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/capital/createtagassociationtype.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="21" selection-start="0" selection-end="595" vertical-scroll-proportion="-15.36" vertical-offset="0" max-vertical-offset="592">
+            <state line="31" column="0" selection-start="595" selection-end="595" vertical-scroll-proportion="0.4652908" vertical-offset="0" max-vertical-offset="1066">
               <folding>
                 <element signature="e#7#48#0" expanded="true" />
               </folding>
@@ -85,10 +87,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MySQL - newcap@192.168.180.142" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="MySQL - newcap@192.168.180.142" pinned="false" current="false" current-in-tab="false">
         <entry file="dbDummy://db-console:/1a5ec063/8b1c978e-f19a-4cc2-8fe6-c58bb0806491/">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="21" selection-start="955" selection-end="955" vertical-scroll-proportion="0.65789473" vertical-offset="109" max-vertical-offset="1904">
+            <state line="46" column="35" selection-start="879" selection-end="879" vertical-scroll-proportion="-21.62069" vertical-offset="109" max-vertical-offset="1904">
               <folding />
             </state>
           </provider>
@@ -97,9 +99,9 @@
       <file leaf-file-name="populatedatabase.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/populatedatabase.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="0" selection-start="920" selection-end="920" vertical-scroll-proportion="-26.24" vertical-offset="0" max-vertical-offset="3744">
+            <state line="134" column="18" selection-start="2175" selection-end="2175" vertical-scroll-proportion="-24.32" vertical-offset="1456" max-vertical-offset="3792">
               <folding>
-                <marker date="1439910663000" expanded="true" signature="974:1124" placeholder="INSERT INTO ..." />
+                <marker date="1439917650000" expanded="true" signature="974:1124" placeholder="INSERT INTO ..." />
               </folding>
             </state>
           </provider>
@@ -138,7 +140,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/public/vendor/mdl/material.js" />
         <option value="$PROJECT_DIR$/public/vendor/froala_editor/js/froala_editor.min.js" />
         <option value="$PROJECT_DIR$/public/vendor/line-control-master/demo.html" />
         <option value="$PROJECT_DIR$/public/application/module/Tag/template/tagmanager.mainpanel.html" />
@@ -186,9 +187,10 @@
         <option value="$PROJECT_DIR$/public/index.php" />
         <option value="$PROJECT_DIR$/application/Module/Tag/script/capital/migratepagehubassociation.php" />
         <option value="$PROJECT_DIR$/application/Module/Tag/script/capital/installcapital.sh" />
-        <option value="$PROJECT_DIR$/application/Module/Tag/script/populatedatabase.php" />
         <option value="$PROJECT_DIR$/application/Module/Tag/script/capital/migraterelatedtag.php" />
         <option value="db-console:/1a5ec063/8b1c978e-f19a-4cc2-8fe6-c58bb0806491/" />
+        <option value="$PROJECT_DIR$/application/Module/Tag/script/populatedatabase.php" />
+        <option value="$PROJECT_DIR$/application/Module/Tag/script/capital/populatedatabase.php" />
       </list>
     </option>
   </component>
@@ -349,6 +351,32 @@
               <option name="myItemId" value="application" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Module" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tag" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="superbok" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="superbok" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -421,10 +449,10 @@
     <frame x="20" y="22" width="2314" height="1234" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Database Console" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.43133804" sideWeight="0.52276707" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21654929" sideWeight="0.52276707" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1598513" sideWeight="0.37226278" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.43133804" sideWeight="0.47723293" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21654929" sideWeight="0.47723293" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950348" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -432,7 +460,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20378521" sideWeight="0.6270073" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18838029" sideWeight="0.6270073" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -724,13 +752,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/capital/populatedatabase.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="334" vertical-scroll-proportion="78.76" vertical-offset="1969" max-vertical-offset="2976">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/Module/Tag/Model/AssociationType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="27" selection-start="335" selection-end="335" vertical-scroll-proportion="-12.16" vertical-offset="0" max-vertical-offset="512">
@@ -759,15 +780,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/capital/createtagassociationtype.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="21" selection-start="0" selection-end="595" vertical-scroll-proportion="-15.36" vertical-offset="0" max-vertical-offset="592">
-          <folding>
-            <element signature="e#7#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cronjob.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="0" selection-start="217" selection-end="217" vertical-scroll-proportion="-12.8" vertical-offset="0" max-vertical-offset="416">
@@ -792,15 +804,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/populatedatabase.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="0" selection-start="920" selection-end="920" vertical-scroll-proportion="-26.24" vertical-offset="0" max-vertical-offset="3744">
-          <folding>
-            <marker date="1439910663000" expanded="true" signature="974:1124" placeholder="INSERT INTO ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/Configuration/Datasource.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="90" selection-start="791" selection-end="791" vertical-scroll-proportion="-22.4" vertical-offset="0" max-vertical-offset="1136">
@@ -817,6 +820,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="dbDummy://db-console:/1a5ec063/8b1c978e-f19a-4cc2-8fe6-c58bb0806491/">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="35" selection-start="879" selection-end="879" vertical-scroll-proportion="-21.62069" vertical-offset="109" max-vertical-offset="1904">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/populatedatabase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="134" column="18" selection-start="2175" selection-end="2175" vertical-scroll-proportion="-24.32" vertical-offset="1456" max-vertical-offset="3792">
+          <folding>
+            <marker date="1439917650000" expanded="true" signature="974:1124" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/capital/migraterelatedtag.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="17" selection-start="465" selection-end="465" vertical-scroll-proportion="-13.44" vertical-offset="0" max-vertical-offset="1024">
@@ -828,10 +847,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://db-console:/1a5ec063/8b1c978e-f19a-4cc2-8fe6-c58bb0806491/">
+    <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/capital/populatedatabase.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="21" selection-start="955" selection-end="955" vertical-scroll-proportion="0.65789473" vertical-offset="109" max-vertical-offset="1904">
+        <state line="106" column="26" selection-start="2246" selection-end="2246" vertical-scroll-proportion="-32.76" vertical-offset="797" max-vertical-offset="3056">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/capital/createtagassociationtype.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="0" selection-start="595" selection-end="595" vertical-scroll-proportion="0.4652908" vertical-offset="0" max-vertical-offset="1066">
+          <folding>
+            <element signature="e#7#48#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

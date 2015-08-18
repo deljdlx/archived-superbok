@@ -75,31 +75,36 @@ $query="
             "caption" : "Code ISIN",
             "mandatory": false,
             "type": "text",
-            "default": null
+            "default": null,
+            "enable": true
         },
         "listed": {
             "caption" : "Entreprise cotée",
             "mandatory": false,
             "type": "boolean",
-            "default": false
+            "default": false,
+            "enable": true
         },
         "assetId": {
             "caption" : "Asset ID",
             "mandatory": false,
             "type": "integer",
-            "default": null
+            "default": null,
+            "enable": true
         },
         "sixId": {
             "caption" : "Six ID",
             "mandatory": false,
             "type": "text",
-            "default": null
+            "default": null,
+            "enable": true
         },
         "cofisemId": {
             "caption" : "Cofisem ID",
             "mandatory": false,
             "type": "integer",
-            "default": null
+            "default": null,
+            "enable": true
         }
     },
     "rules": []
