@@ -210,6 +210,33 @@ $query="
 ";
 $tagDataSource->query($query);
 
+$tagTypeContent=new Type($tagDataSource);
+$tagTypeContent->loadBy('qname', 'content');
+$tagTypeContent=$tagTypeTree->getRoot();
+$tagTypeContent->setValue('data','{
+    "attributes": {
+        "image": {
+            "caption": "Image",
+            "mandatory": false,
+            "type": "image",
+            "default": null,
+            "enable": true
+        }
+    },
+    "rules": []
+}');
+$tagTypeContent->update();
+
+
+
+
+
+
+
+
+
+
+
 
 
 
