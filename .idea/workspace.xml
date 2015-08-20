@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5d5e1c07-5fa8-4fc3-a54b-fb02fb9cbb97" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/Module/Tag/script/capital/createpagehubassociationtype.php" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/application/Module/Tag/script/capital/createtagassociationtype.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="superbok.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,10 +26,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="installcapital.sh" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="installcapital.sh" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/capital/installcapital.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="375" selection-end="375" vertical-scroll-proportion="-6.4" vertical-offset="0" max-vertical-offset="608">
+            <state line="5" column="0" selection-start="165" selection-end="165" vertical-scroll-proportion="0.093786635" vertical-offset="0" max-vertical-offset="853">
               <folding />
             </state>
           </provider>
@@ -91,10 +89,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MySQL - newcap@192.168.180.142" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="MySQL - newcap@192.168.180.142" pinned="false" current="false" current-in-tab="false">
         <entry file="dbDummy://db-console:/1a5ec063/8b1c978e-f19a-4cc2-8fe6-c58bb0806491/">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="0" selection-start="662" selection-end="1024" vertical-scroll-proportion="0.41697416" vertical-offset="109" max-vertical-offset="2832">
+            <state line="29" column="6" selection-start="669" selection-end="669" vertical-scroll-proportion="-12.24138" vertical-offset="109" max-vertical-offset="2832">
               <folding />
             </state>
           </provider>
@@ -114,7 +112,7 @@
       <file leaf-file-name="Datasource.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/Configuration/Datasource.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="90" selection-start="791" selection-end="791" vertical-scroll-proportion="-22.4" vertical-offset="0" max-vertical-offset="1136">
+            <state line="20" column="9" selection-start="327" selection-end="327" vertical-scroll-proportion="-12.8" vertical-offset="0" max-vertical-offset="1152">
               <folding />
             </state>
           </provider>
@@ -184,7 +182,6 @@
         <option value="$PROJECT_DIR$/application/Module/Tag/Controller/TagManager.php" />
         <option value="$PROJECT_DIR$/public/application/module/Tag/TagManager.js" />
         <option value="$PROJECT_DIR$/application/Module/Tag/Model/Tag.php" />
-        <option value="$PROJECT_DIR$/application/Configuration/Datasource.php" />
         <option value="$PROJECT_DIR$/application/Module/Tag/script/capital/createtagassociationtype.php" />
         <option value="$PROJECT_DIR$/bootstrap.php" />
         <option value="$PROJECT_DIR$/index.php" />
@@ -195,13 +192,14 @@
         <option value="$PROJECT_DIR$/application/Module/Tag/script/populatedatabase.php" />
         <option value="$PROJECT_DIR$/application/Module/Tag/script/capital/migraterelatedtag.php" />
         <option value="db-console:/1a5ec063/8b1c978e-f19a-4cc2-8fe6-c58bb0806491/" />
+        <option value="$PROJECT_DIR$/application/Configuration/Datasource.php" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="599" />
-    <option name="y" value="328" />
+    <option name="x" value="724" />
+    <option name="y" value="200" />
     <option name="width" value="2147" />
     <option name="height" value="1021" />
   </component>
@@ -450,13 +448,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="599" y="328" width="2147" height="1021" extended-state="0" />
-    <editor active="false" />
+    <frame x="724" y="200" width="2147" height="1021" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Database Console" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37007126" sideWeight="0.5220667" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18812351" sideWeight="0.5220667" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1598513" sideWeight="0.37226278" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37007126" sideWeight="0.47685683" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18812351" sideWeight="0.47685683" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950348" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -784,26 +782,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/Configuration/Datasource.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="90" selection-start="791" selection-end="791" vertical-scroll-proportion="-22.4" vertical-offset="0" max-vertical-offset="1136">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/capital/associatetag.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="46" column="0" selection-start="864" selection-end="1145" vertical-scroll-proportion="-26.24" vertical-offset="0" max-vertical-offset="1072">
           <folding>
             <marker date="1438954396000" expanded="true" signature="568:684" placeholder="SELECT * FRO..eztags_attribute_link..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/capital/installcapital.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="375" selection-end="375" vertical-scroll-proportion="-6.4" vertical-offset="0" max-vertical-offset="608">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -862,7 +846,21 @@
     </entry>
     <entry file="dbDummy://db-console:/1a5ec063/8b1c978e-f19a-4cc2-8fe6-c58bb0806491/">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="0" selection-start="662" selection-end="1024" vertical-scroll-proportion="0.41697416" vertical-offset="109" max-vertical-offset="2832">
+        <state line="29" column="6" selection-start="669" selection-end="669" vertical-scroll-proportion="-12.24138" vertical-offset="109" max-vertical-offset="2832">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/Configuration/Datasource.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="9" selection-start="327" selection-end="327" vertical-scroll-proportion="-12.8" vertical-offset="0" max-vertical-offset="1152">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/Module/Tag/script/capital/installcapital.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="165" selection-end="165" vertical-scroll-proportion="0.093786635" vertical-offset="0" max-vertical-offset="853">
           <folding />
         </state>
       </provider>
