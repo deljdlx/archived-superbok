@@ -20,7 +20,7 @@ class TagManager extends Controller
 
 
         if((int) $nodeId) {
-            $tree->loadById($_GET['nodeId']);
+            $tree->loadById($nodeId);
         }
         else {
             $tree=$tree->getRoot();
@@ -46,7 +46,11 @@ class TagManager extends Controller
                     'text'=>''.$child->getValue('caption'),
                     'children'=>$childrenExists,
                     'something'=>'test',
-                    'type'=>$type->getValue('caption'),
+                    'type'=>array(
+                        'caption'=>$type->getValue('caption'),
+                        'qname'=>$type->getValue('qname'),
+                        'id'=>$type->getValue('id'),
+                    ),
                     'icon'=>$icon,
                     'data'=>$child->getValue('data'),
                 );
@@ -57,6 +61,29 @@ class TagManager extends Controller
 
 
         $nodes=array_values($nodes);
+
+        if(!(int) $nodeId) {
+
+
+            $type=$tree->getType();
+            $icon='fa tag-'.$type->getValue('qname');
+
+            $rootNode[strtolower($tree->getValue('slug'))]=array(
+                'id'=>$tree->getId(),
+                'text'=>''.$tree->getValue('caption'),
+                'children'=>$nodes,
+                'something'=>'test',
+                'type'=>array(
+                    'caption'=>$type->getValue('caption'),
+                    'qname'=>$type->getValue('qname'),
+                    'id'=>$type->getValue('id'),
+                ),
+                'icon'=>$icon,
+                'data'=>$tree->getValue('data'),
+            );
+
+            $nodes=array_values($rootNode);
+        }
 
         return $nodes;
     }
@@ -87,12 +114,56 @@ class TagManager extends Controller
         $tag=new Tag($this->getDataSource());
         $tag->loadById((int) $tagId);
         $tag->setInheritableAttributesValues(array('attributes'=>$attributes), true);
-
         $tag->update();
+        return $tag->getInheritedAttributesValues();
+    }
+
+    public function delete($tagId) {
+        $tag=new Tag($this->getDataSource());
+        $tag->loadById((int) $tagId);
+        $tag->delete();
 
         return $tag->getInheritedAttributesValues();
+    }
+
+    public function move($tagId, $parentId) {
+        $tag=new Tag($this->getDataSource());
+        $tag->loadById((int) $tagId);
+        $tag->setValue('parent_id', $parentId);
+        $tag->update();
+        return $tag;
+    }
+
+
+    public function rename($tagId, $caption) {
+        $tag=new Tag($this->getDataSource());
+        $tag->loadById((int) $tagId);
+        $tag->setValue('caption', $caption);
+        $tag->setValue('slug', slugify($caption));
+        $tag->setInheritableAttributesValues(array('attributes'=>array(
+            'title'=>$caption
+        )), true);
+        $tag->update();
+        return $tag;
+    }
+
+
+    public function getParents($tagId) {
+        $tag=new Tag($this->getDataSource());
+        $tag->loadById((int) $tagId);
+        $parents=$tag->getParents();
+
+        $data=array();
+
+        foreach ($parents as $parent) {
+            $data[]=$parent->getValues();
+        }
+        return $data;
+
 
     }
+
+
 
 
 }

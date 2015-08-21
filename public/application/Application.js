@@ -33,6 +33,7 @@ Application.prototype.setMainPanelContent=function(content) {
 }
 
 
+
 Application.prototype.getParameters=function(buffer) {
 
 	var parametersBuffer=buffer.replace(/.*?#(.*)/g, '$1');
@@ -140,6 +141,41 @@ Application.prototype.loadModule=function(moduleName, request) {
 Application.prototype.ajax=function(options) {
 	return $.ajax(options);
 }
+
+
+
+Application.setURLParameter=function(name, value) {
+	var location=document.location.toString();
+	if(location.match(/#/)) {
+		var regexp=new RegExp('&'+name+'=');
+		if(!location.match(regexp)) {
+			location+='&'+name+'='+value;
+		}
+		else {
+			var regexp=new RegExp('&'+name+'=.*?(&|$)');
+			location=location.replace(regexp, '&'+name+'='+value+'$1');
+		}
+	}
+	document.location=location;
+}
+
+
+Application.getURLParameter=function(name) {
+	var location=document.location.toString();
+	if(location.match(/#/)) {
+
+		var regexp=new RegExp('&'+name+'=');
+		if(location.match(regexp)) {
+			var regexp=new RegExp('.*?&'+name+'=(.*?)(&|$).*', 'g');
+			return location.replace(regexp, '$1');
+		}
+		return
+	}
+
+
+	return null;
+}
+
 
 
 

@@ -47,32 +47,39 @@ Module.prototype.loadData=function(data) {
 	return this;
 }
 
-Module.prototype.start=function(callback) {
 
+Module.prototype.start=function(callback) {
 
 	for(var name in this.css) {
 		this.loadCSS(name);
 	}
+	this.loadJavascripts(callback);
 
+}
+
+
+Module.prototype.loadJavascripts=function(endCallback) {
 	var customCallback=function() {
 		customCallback.nbScriptLoaded++;
 
-		console.debug(customCallback.nbScriptLoaded, customCallback.nbScript);
-
 		if(customCallback.nbScriptLoaded==customCallback.nbScript) {
-			customCallback.callback();
+			customCallback.endCallback();
 		}
-	}
+		else {
+			$.getScript(customCallback.javascripts[customCallback.nbScriptLoaded].url, customCallback);
+		}
+	};
 
 	customCallback.nbScript=Object.keys(this.javascripts).length
 	customCallback.nbScriptLoaded=0;
-	customCallback.callback=callback;
+	customCallback.endCallback=endCallback;
+	customCallback.javascripts=[];
 
 	for(var name in this.javascripts) {
-		this.loadJavascript(name, customCallback);
+		customCallback.javascripts.push(this.javascripts[name]);
 	}
+	$.getScript(customCallback.javascripts[0].url, customCallback);
 }
-
 
 
 

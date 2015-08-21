@@ -1,7 +1,12 @@
 TagManager={
+
 	getTagFormURL:'module/tag/tagmanager/getForm',
 	dataSourceURL:'module/tag/tagmanager/gettree',
 	saveTagURL:'module/tag/tagmanager/save',
+	deleteTagURL: 'module/tag/tagmanager/delete',
+	moveTagURL: 'module/tag/tagmanager/move',
+	getParentsOfURL: 'module/tag/tagmanager/getParents',
+	renameTagURL: 'module/tag/tagmanager/rename',
 
 
 	treeNodeSelector:'#tree',
@@ -22,12 +27,64 @@ TagManager={
 		TagManager.application.setMainPanelContent(TagManager.module.getView('tagManagerLayout'));
 
 		TagManager.formContainer= $(TagManager.formContainerSelector);
-
 		TagManager.initializeTree();
 
 
-		//TagManager.initializeEditor();
+
 	},
+
+
+	showRemoveNodeConfirmation: function(selectedNode) {
+		TagManager.application.modal.showConfirmBox('Effacer le tag "'+selectedNode.text+'" ?', function() {
+
+			this.deleteTag(selectedNode);
+			var tree = $(TagManager.treeNodeSelector).jstree(true);
+			tree.delete_node(selectedNode);
+
+		}.bind(this), function() {
+			TagManager.application.modal.hideConfirmBox();
+		});
+	},
+
+	deleteTag: function(tag) {
+		$.ajax({
+			method:'post',
+			url: this.deleteTagURL,
+			data: {tagId:tag.id},
+			success: function(data) {
+			}
+		})
+	},
+
+
+
+	showMoveNodeConfirmation: function(movedNode, destinationNode) {
+		TagManager.application.modal.showConfirmBox('Déplacer "'+movedNode.text+'" vers "'+destinationNode.text+'" ?', function() {
+
+			var tree = $(TagManager.treeNodeSelector).jstree(true);
+			tree.move_node(movedNode, destinationNode);
+
+			$.ajax({
+				url: TagManager.moveTagURL,
+				data: {
+					tagId: movedNode.id,
+					parentId: destinationNode.id,
+					success: function(data) {
+
+					}
+				}
+			})
+
+
+			TagManager.application.modal.hide();
+
+		}.bind(this), function() {
+			TagManager.application.modal.hide();
+		});
+	},
+
+
+
 
 
 	showCreateTagForm: function(parentNode) {
@@ -43,10 +100,6 @@ TagManager={
 			icon :'fa fa-tag'
 		});
 		tree.edit(newNode);
-		console.debug(newNode);
-
-
-
 		TagManager.application.modal.show();
 	},
 
@@ -82,7 +135,7 @@ TagManager={
 						"label": "Effacer",
 						'icon': 'fa fa-minus',
 						"action": function (item) {
-							tree.delete_node(selectedNode);
+							TagManager.showRemoveNodeConfirmation(selectedNode);
 						}
 					}
 				};
@@ -97,6 +150,8 @@ TagManager={
 		TagManager.currentNodeId=id;
 	},
 
+
+
 	initializeTree: function() {
 
 		$(TagManager.treeNodeSelector).jstree('destroy');
@@ -108,14 +163,24 @@ TagManager={
 		TagManager.tree=$(TagManager.treeNodeSelector).jstree({
 			'core' : {
 
-				'check_callback' : function(o, n, p, i, m) {
-					/*
-					 if(m && m.dnd && m.pos !== 'i') { return false; }
-					 if(o === "move_node" || o === "copy_node") {
-					 if(this.get_node(n).parent === this.get_node(p).id) { return false; }
-					 }
-					 */
+				'check_callback' : function(o, movedNode, destinationNode, i, extra) {
+					if(extra && extra.core && extra.origin) {
 
+						console.debug(extra);
+						//var tree = $(TagManager.treeNodeSelector).jstree(true);
+						//console.debug(tree.get_node(data.parent));
+						TagManager.showMoveNodeConfirmation(movedNode, destinationNode);
+						return false;
+					}
+
+
+					 if(extra && extra.dnd && extra.pos !== 'i') { return false; }
+
+					 if(o === "move_node" || o === "copy_node") {
+					 	if(this.get_node(movedNode).parent === this.get_node(destinationNode).id) { return false; }
+						 return true;
+					 }
+					//return false;
 					//prevent all modifications
 
 					return true;
@@ -134,7 +199,7 @@ TagManager={
 					}
 				}
 			},
-			"plugins" : ["contextmenu"]
+			"plugins" : ["contextmenu", "dnd"]
 		});
 
 
@@ -144,16 +209,105 @@ TagManager={
 
 		TagManager.tree.on("select_node.jstree", function (e, data) {
 			TagManager.displayNodeData(data.node);
+			Application.setURLParameter('tagId', data.node.id);
+		});
+
+		TagManager.tree.on("ready.jstree", function() {
+			if(Application.getURLParameter('tagId')) {
+				var tree = $(TagManager.treeNodeSelector).jstree(true);
+				var node=tree.get_node(node);
+				if(!node) {
+					TagManager.loadParentsOf(Application.getURLParameter('tagId'));
+				}
+				else {
+					tree.select_node(Application.getURLParameter('tagId'));
+					TagManager.displayNodeData(Application.getURLParameter('tagId'));
+				}
+			}
+		})
+
+
+		TagManager.tree.on("rename_node.jstree", function(event, data) {
+
+
+			console.debug(data.node);
+
+			TagManager.renameNode(data.node);
+
 		});
 
 
+
+		/*
+		TagManager.tree.on("move_node.jstree", function(event, data) {
+
+		});
+		*/
 	},
+
+	renameNode: function renameNode(node) {
+		console.debug(node);
+
+		$.ajax({
+			url:TagManager.renameTagURL,
+			data: {
+				tagId: node.id,
+				caption: node.text
+			},
+			success: function(data) {
+
+			}
+		});
+	},
+
+	loadParentsOf:function(tagId) {
+		//return;
+		$.ajax({
+			url: this.getParentsOfURL,
+			data: {
+				tagId: tagId
+			},
+			success: function(data) {
+				var parents=data.reverse();
+
+				var tree = $(TagManager.treeNodeSelector).jstree(true);
+				var node=tree.get_node(node);
+
+				for(var i=0; i<parents.length; i++) {
+					var nodeId=parents[i].id;
+
+					tree.open_node(nodeId, function() {
+						if(tree.get_node(tagId)) {
+							tree.select_node(tagId);
+
+							var treeNode=tree.get_node(tagId);
+
+							setTimeout(function() {
+								var node=$('li.jstree-node[id='+tagId+']');
+								$('.tag-tree-container').get(0).scrollTop=$(node).offset().top-200;
+							}, 500)
+							return true;
+						}
+					});
+				}
+			}
+		})
+	},
+
+
+
+
 
 	displayNodeData: function(node) {
 
-		TagManager.setCurrentNodeId(node.id);
+		console.debug(node);
+		if(parseInt(node)) {
+			var tree = $(TagManager.treeNodeSelector).jstree(true);
+			node=tree.get_node(node);
+		}
 
-		$(TagManager.captionNodeSelector).html('Tag : '+node.text+ ' ('+node.original.type+')');
+		TagManager.setCurrentNodeId(node.id);
+		$(TagManager.captionNodeSelector).html('Tag : '+node.text+ ' ('+node.original.type.caption+')');
 
 		$.ajax({
 			url:this.getTagFormURL+'?nodeId='+node.id,

@@ -104,6 +104,22 @@ abstract class  DatabaseElement
 
 
 
+    public function delete() {
+        if($this->getId()) {
+            $query="
+            DELETE FROM ".static::getTableName()."
+            WHERE ".static::getPrimaryKeyFieldName()."=".$this->escape($this->getId())."
+        ";
+            $this->query($query);
+
+            return $this;
+        }
+        else {
+            return false;
+        }
+    }
+
+
 
 
     public function insert() {
