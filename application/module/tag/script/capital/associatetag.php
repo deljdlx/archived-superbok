@@ -28,13 +28,16 @@ $defaultAssociation->loadBy('qname', 'default');
 
 
 $query="
-    SELECT
-      *
+    SELECT DISTINCT
+      tag.keyword,
+      association.object_id
     FROM eztags_attribute_link association
     JOIN eztags tag
       ON tag.id=association.keyword_id
 
 ";
+
+
 
 
 $rows=$oldModel->queryAndFetch($query);

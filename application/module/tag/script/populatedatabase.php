@@ -125,13 +125,6 @@ $rootTypeNode=$tagTypeTree->getRoot();
 
 $rootTypeNode->setValue('data','{
     "attributes": {
-        "image": {
-            "caption": "Image",
-            "mandatory": false,
-            "type": "image",
-            "default": null,
-            "enable": true
-        },
         "title": {
             "caption": "Titre",
             "mandatory": false,
@@ -212,7 +205,6 @@ $tagDataSource->query($query);
 
 $tagTypeContent=new Type($tagDataSource);
 $tagTypeContent->loadBy('qname', 'content');
-$tagTypeContent=$tagTypeTree->getRoot();
 $tagTypeContent->setValue('data','{
     "attributes": {
         "image": {
@@ -250,12 +242,19 @@ $tree->buildTree();
 echo "Create root tag \n";
 
 
+$contentTagType=new Type($tagDataSource);
+$contentTagType->loadBy('qname', 'default');
+
+
 $tag=new Tag();
 $tag->setSource($tagDataSource);
-$tag->setCaption('#');
+$tag->setValue('type_id', $contentTagType->getId());
+$tag->setCaption('Tags');
 $tag->insert();
 
 $tagDataSource->commit();
+
+$tag->buildTree();
 
 
 

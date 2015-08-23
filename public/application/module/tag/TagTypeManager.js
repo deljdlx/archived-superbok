@@ -1,13 +1,25 @@
 TagTypeManager={
 	dataSourceURL:'module/tag/tagtypemanager/gettree',
+	updateURL:'module/tag/tagtypemanager/update',
+	getNodeInfoURL:'module/tag/tagtypemanager/getNodeInfo',
+
+
 	treeNodeSelector:'#tree',
 	captionNodeSelector:'.tagTypeCaption',
 
-	initialize:function() {
-		this.application=Application.getInstance();
-		this.module=Application.getInstance().getModule('Tag');
+	formPanelContainerSelector: '.formPanelContainer',
+	formPanelContainer:null,
 
-		this.application.setMainPanelContent(this.module.getView('tagTypeManagerLayout'));
+
+	initialize:function() {
+		TagTypeManager.application=Application.getInstance();
+		TagTypeManager.module=Application.getInstance().getModule('Tag');
+
+		TagTypeManager.application.setMainPanelContent(TagTypeManager.module.getView('tagTypeManagerLayout'));
+
+		TagTypeManager.formPanelContainer=document.querySelector(TagTypeManager.formPanelContainerSelector);
+
+		console.debug(TagTypeManager.formPanelContainer);
 
 
 		TagTypeManager.initializeTree();
@@ -100,6 +112,8 @@ TagTypeManager={
 			"plugins" : ["contextmenu"]
 		});
 
+		TagTypeManager.treeManager=$(TagTypeManager.treeNodeSelector).jstree(true);
+
 		TagTypeManager.tree.on("select_node.jstree", function (e, data) {
 			TagTypeManager.displayNodeData(data.node);
 		});
@@ -118,17 +132,88 @@ TagTypeManager={
 		 */
 	},
 
+	sendFormData: function() {
+		var nodeId=TagTypeManager.treeManager.get_selected();
+
+		//attention nodeId est un tableau
+		if(!nodeId) {
+			TagTypeManager.application.modal.alert('Le noeud en cours d\'édition est introuvable');
+			return;
+		}
+
+		var attributeContent=TagTypeManager.editor.getValue();
+
+
+		try {
+			var attributesValues=JSON.parse(attributeContent);
+			TagTypeManager.application.ajax({
+				method:'post',
+				url: TagTypeManager.updateURL,
+				data: {
+					nodeId: nodeId.pop(),
+					attributesValues:attributesValues,
+					attributesVauesJSON: attributeContent
+				},
+				success: function(data) {
+					console.debug(data);
+				}
+			})
+
+
+		} catch(exception) {
+			TagTypeManager.application.modal.alert('Descripteur non valide, veuillez vérifier la validité du JSON '+'<div>'+exception.toString()+'</div>');
+		}
+
+
+
+	},
+
 	displayNodeData: function(node) {
 
-		$(TagTypeManager.captionNodeSelector).html('Type de tag : '+node.text);
+
+		TagTypeManager.application.ajax({
+			url: TagTypeManager.getNodeInfoURL,
+			data: {nodeId: node.id},
+			success: function(nodeData) {
+
+				//console.debug(data);
+
+				$(TagTypeManager.captionNodeSelector).html('Type de tag : '+nodeData.caption);
 
 
-		if(node.data) {
-			TagTypeManager.editor.setValue(node.data);
-		}
-		else {
-			TagTypeManager.editor.setValue("");
-		}
+				if(nodeData.data) {
+					TagTypeManager.editor.setValue(nodeData.data);
+
+
+					var button=document.createElement('button');
+					button.className='mdl-button mdl-js-button mdl-button--icon';
+					button.innerHTML='<i class="fa fa-check"></i>';
+
+					$(button).click(function() {
+						TagTypeManager.sendFormData();
+					})
+
+
+
+					var buttonContainer=document.createElement('div');
+					buttonContainer.className='pmd-form-container-submit';
+					buttonContainer.appendChild(button)
+
+					jQuery(TagTypeManager.formPanelContainer).find('.submitContainer').html('');
+					jQuery(TagTypeManager.formPanelContainer).find('.submitContainer').append(buttonContainer);
+
+					if(typeof(componentHandler)!='undefined') {
+						componentHandler.upgradeElement(button);
+					}
+
+
+				}
+				else {
+					TagTypeManager.editor.setValue("");
+				}
+			}
+
+		})
 	}
 };
 

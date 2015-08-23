@@ -194,6 +194,9 @@ include('../index.php');
 
 
 
+        .jstree-icon.tag-default:before {
+	        content: "\f07b";
+        }
 
        .jstree-icon.tag-category:before {
            content: "\f07b";
@@ -255,6 +258,11 @@ include('../index.php');
             /*height: 100% !important;*/
             overflow: auto;
         }
+
+
+	    .pmd-form-container-submit {
+		    text-align:right;
+	    }
 
     </style>
 

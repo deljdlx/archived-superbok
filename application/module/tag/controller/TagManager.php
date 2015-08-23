@@ -73,6 +73,9 @@ class TagManager extends Controller
                 'text'=>''.$tree->getValue('caption'),
                 'children'=>$nodes,
                 'something'=>'test',
+	            'state'=>array(
+		            'opened'=>true,
+	            ),
                 'type'=>array(
                     'caption'=>$type->getValue('caption'),
                     'qname'=>$type->getValue('qname'),
@@ -95,6 +98,7 @@ class TagManager extends Controller
 
 
         $values=$tag->getInheritedAttributesValues();
+
 
 
 

@@ -1,7 +1,13 @@
 <?php
 namespace PMD\Capital\Module\Tag\Controller;
 
+use PMD\Capital\Configuration\DataSource;
+use PMD\Capital\Library\AttributeRenderer;
+use PMD\Capital\Module\Tag\Model\Tag;
+use PMD\Capital\Model\ObjectType;
 use PMD\Capital\Module\Tag\Model\Type;
+use PMD\Capital\Module\Tag\Model\Association;
+use PMD\Capital\Module\Tag\Model\AssociationType;
 
 
 class TagTypeManager extends Controller
@@ -71,11 +77,26 @@ class TagTypeManager extends Controller
         else {
             return $nodes;
         }
-
-
-
-
     }
+
+	public function getNodeInfo($nodeId) {
+		$tagCategory=new Type($this->getDataSource());
+		$tagCategory->loadById($nodeId);
+
+
+		return $tagCategory->getValues();
+	}
+
+	public function update($nodeId, $values, $json) {
+
+		$tagCategory=new Type($this->getDataSource());
+		$tagCategory->loadById($nodeId);
+		$tagCategory->setValue('data', json_encode($values, JSON_PRETTY_PRINT));
+		$tagCategory->update();
+
+
+		return $tagCategory->getValue('data');
+	}
 
 
 }

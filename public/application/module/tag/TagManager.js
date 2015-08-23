@@ -35,8 +35,10 @@ TagManager={
 
 
 	showRemoveNodeConfirmation: function(selectedNode) {
-		TagManager.application.modal.showConfirmBox('Effacer le tag "'+selectedNode.text+'" ?', function() {
 
+
+
+		TagManager.application.modal.showConfirmBox('Effacer le tag "'+selectedNode.text+'" ?', function() {
 			this.deleteTag(selectedNode);
 			var tree = $(TagManager.treeNodeSelector).jstree(true);
 			tree.delete_node(selectedNode);
@@ -204,7 +206,6 @@ TagManager={
 
 
 		//TagManager.tree=$(TagManager.treeNodeSelector).jstree(true);
-
 		//console.debug(TagManager.tree);
 
 		TagManager.tree.on("select_node.jstree", function (e, data) {
@@ -213,9 +214,11 @@ TagManager={
 		});
 
 		TagManager.tree.on("ready.jstree", function() {
+
 			if(Application.getURLParameter('tagId')) {
 				var tree = $(TagManager.treeNodeSelector).jstree(true);
-				var node=tree.get_node(node);
+				var node=tree.get_node();
+
 				if(!node) {
 					TagManager.loadParentsOf(Application.getURLParameter('tagId'));
 				}
@@ -224,14 +227,12 @@ TagManager={
 					TagManager.displayNodeData(Application.getURLParameter('tagId'));
 				}
 			}
+			else {
+			}
 		})
 
 
 		TagManager.tree.on("rename_node.jstree", function(event, data) {
-
-
-			console.debug(data.node);
-
 			TagManager.renameNode(data.node);
 
 		});
@@ -246,8 +247,6 @@ TagManager={
 	},
 
 	renameNode: function renameNode(node) {
-		console.debug(node);
-
 		$.ajax({
 			url:TagManager.renameTagURL,
 			data: {
@@ -282,6 +281,7 @@ TagManager={
 
 							var treeNode=tree.get_node(tagId);
 
+							//selection du noeud, petite temporisation pour laisser le temps l'arbre de faire ses traitements
 							setTimeout(function() {
 								var node=$('li.jstree-node[id='+tagId+']');
 								$('.tag-tree-container').get(0).scrollTop=$(node).offset().top-200;
@@ -300,7 +300,6 @@ TagManager={
 
 	displayNodeData: function(node) {
 
-		console.debug(node);
 		if(parseInt(node)) {
 			var tree = $(TagManager.treeNodeSelector).jstree(true);
 			node=tree.get_node(node);
@@ -308,6 +307,7 @@ TagManager={
 
 		TagManager.setCurrentNodeId(node.id);
 		$(TagManager.captionNodeSelector).html('Tag : '+node.text+ ' ('+node.original.type.caption+')');
+		TagManager.formContainer.html('');
 
 		$.ajax({
 			url:this.getTagFormURL+'?nodeId='+node.id,
@@ -354,8 +354,6 @@ TagManager={
 	},
 
 	displayForm: function(data) {
-		TagManager.formContainer.html('');
-
 
 		var form=document.createElement('form');
 
