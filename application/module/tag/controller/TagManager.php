@@ -100,6 +100,14 @@ class TagManager extends Controller
         $values=$tag->getInheritedAttributesValues();
 
 
+        //on supprime les valeurs d'attribut non définies par le type. Comportement propre à la gestion des tags
+        $attributes=$tag->getInheritableAttributes();
+        foreach ($values['attributes'] as $name => $attribute) {
+            if(!isset($attributes['attributes'][$name])) {
+                unset($values['attributes'][$name]);
+            }
+        }
+
 
 
         $inputs=array();

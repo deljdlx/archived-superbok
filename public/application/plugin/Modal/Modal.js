@@ -74,7 +74,7 @@ Application.prototype.modal.showConfirmBox=function(content, callbackValidate, c
 		'				<p>'+content+'</p>'+
 		'			</div>'+
 		'			<div class="modal-footer">'+
-		'				<button type="button" class="btn btn-default confirm" data-dismiss="modal">OK</button>'+
+		'				<button type="button" class="btn btn-default confirm" >OK</button>'+
 		'				<button type="button" class="btn btn-default cancel" data-dismiss="modal">Annuler</button>'+
 		'			</div>'
 	);

@@ -18,18 +18,51 @@ class TagTypeManager extends Controller
 
         $tree=new Type($this->getDataSource());
 
-        if((int) $nodeId) {
-            $tree->loadById($nodeId);
-            $rootNode=null;
-        }
-        else {
 
-            $tree=$tree->getRoot();
+        $tree=$tree->getRoot();
 
-            $rootNode=$tree;
-        }
 
-        $children=$tree->getChildren();
+        $children=$tree->getChildren(true, true, function($node, $children) {
+            $data=array(
+                'node'=>$node->getValues(),
+                'children'=>array()
+            );
+            foreach ($children as $child) {
+                $data['children'][$child->getId()]=$child->getValues();
+            }
+
+            return $data;
+
+
+
+        });
+
+
+        echo '<pre id="' . __FILE__ . '-' . __LINE__ . '" style="border: solid 1px rgb(255,0,0); background-color:rgb(255,255,255)">';
+        echo '<div style="background-color:rgba(100,100,100,1); color: rgba(255,255,255,1)">' . __FILE__ . '@' . __LINE__ . '</div>';
+        print_r($children);
+        echo '</pre>';
+
+
+
+        $icon='fa fa-tag';
+        $childrenExists=$tree->childrenExists();
+        $rootNode=array(
+            'id'=>$tree->getId(),
+            'text'=>''.$tree->getValue('caption'),
+            'children'=>$childrenExists,
+            'data'=>$tree->getValue('data'),
+            'icon'=>$icon
+        );
+
+        $nodes[strtolower($tree->getValue('caption'))]=$rootNode;
+
+
+
+        die('EXIT '.__FILE__.'@'.__LINE__);
+
+
+        $nodes=array();
 
 
         $nodes=array();
@@ -98,6 +131,21 @@ class TagTypeManager extends Controller
 		return $tagCategory->getValue('data');
 	}
 
+
+    public function create($parentId, $caption) {
+        $tagCategory=new Type($this->getDataSource());
+        $tagCategory->setValue('parent_id', $parentId);
+        $tagCategory->setValue('caption', $caption);
+        $tagCategory->insert();
+
+        $rootCategory=new Type($this->getDataSource());
+        $rootCategory->loadBy('qname', 'default');
+
+
+        $tagCategory->buildTree($rootCategory->getId(), true);
+
+        return $tagCategory->getValues();
+    }
 
 }
 

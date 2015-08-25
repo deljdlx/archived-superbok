@@ -2,6 +2,7 @@ TagTypeManager={
 	dataSourceURL:'module/tag/tagtypemanager/gettree',
 	updateURL:'module/tag/tagtypemanager/updateInheritableAttributes',
 	getNodeInfoURL:'module/tag/tagtypemanager/getNodeInfo',
+	createURL: 'module/tag/tagtypemanager/create',
 
 
 	treeNodeSelector:'#tree',
@@ -9,6 +10,10 @@ TagTypeManager={
 
 	formPanelContainerSelector: '.formPanelContainer',
 	formPanelContainer:null,
+
+
+	defaultNewTypeName: 'Nouveau type',
+	createNewNodeHandler:null,
 
 
 	initialize:function() {
@@ -24,6 +29,63 @@ TagTypeManager={
 		TagTypeManager.initializeEditor();
 	},
 
+
+
+	renameNewNode: function(node) {
+		var tree = TagTypeManager.tree.jstree(true);
+		if(node.text!=TagTypeManager.defaultNewTypeName && node.text) {
+			TagTypeManager.application.ajax({
+				method: 'post',
+				url: TagTypeManager.createURL,
+				data: {
+					parentId: node.parent,
+					caption: node.text
+				},
+				success: function() {
+					TagTypeManager.application.modal.notification('Modifications enregistrées');
+					tree.refresh();
+				}
+			})
+		}
+		else {
+			tree.delete_node(node);
+		}
+
+	},
+
+
+	createNewType: function(node) {
+
+		var newId=new Date().getTime()+'-'+Math.random()+'-'+Math.random();
+
+
+
+		var tree = TagTypeManager.tree.jstree(true);
+
+
+
+
+		var newNodeId = tree.create_node(node, {
+			text: TagTypeManager.defaultNewTypeName,
+			icon :'fa fa-tag',
+			id:newId
+		});
+
+		tree.edit(newNodeId);
+		var newNode=tree.get_node(newId);
+
+		if(!TagTypeManager.createNewNodeHandler) {
+			TagTypeManager.createNewNodeHandler=function(newNode) {
+				TagTypeManager.renameNewNode(newNode);
+			};
+
+
+			TagTypeManager.tree.on('rename_node.jstree', function(event, data) {
+				TagTypeManager.createNewNodeHandler(data.node);
+			})
+		}
+	},
+
 	initializeTreeOptions:function() {
 		$.jstree.defaults.contextmenu={
 			"items" : function($node) {
@@ -32,14 +94,11 @@ TagTypeManager={
 					"Create": {
 						"separator_before": false,
 						"separator_after": false,
-						"label": "Créer",
+						"label": "Créer un sous type",
 						'icon': 'fa fa-plus',
 						"action": function (obj) {
-							$node = tree.create_node($node, {
-								text:"Nouveau type",
-								icon :'fa fa-tag'
-							});
-							tree.edit($node);
+							TagTypeManager.createNewType($node)
+
 						}
 					},
 					"Rename": {
@@ -57,13 +116,35 @@ TagTypeManager={
 						"label": "Effacer",
 						'icon': 'fa fa-minus',
 						"action": function (obj) {
-							tree.delete_node($node);
+
+							TagTypeManager.showRemoveNodeConfirmation($node);
+
+							//tree.delete_node($node);
 						}
 					}
 				};
 			}
 		};
 	},
+
+	showRemoveNodeConfirmation: function(selectedNode) {
+		TagTypeManager.application.modal.showConfirmBox('Supprimer le type "'+selectedNode.text+'" ? <div><label>Tappez "oui" pour confirmer <input class="deleteTypeConfirmation"/></label></div>', function() {
+
+
+
+			//this.deleteTag(selectedNode);
+			//var tree = $(TagManager.TagTypeManager).jstree(true);
+			//tree.delete_node(selectedNode);
+
+		}.bind(this), function() {
+			//TagManager.application.modal.hideConfirmBox();
+		});
+	},
+
+
+
+
+
 	initializeEditor: function() {
 		TagTypeManager.editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
 			lineNumbers: true
@@ -72,8 +153,6 @@ TagTypeManager={
 	initializeTree: function() {
 
 		TagTypeManager.initializeTreeOptions();
-
-		console.debug(TagTypeManager.treeNodeSelector);
 
 		$(TagTypeManager.treeNodeSelector).jstree('destroy');
 

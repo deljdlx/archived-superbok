@@ -1,5 +1,8 @@
 TagManager={
 
+	categoryQname: 'category',
+
+
 	getTagFormURL:'module/tag/tagmanager/getForm',
 	dataSourceURL:'module/tag/tagmanager/gettree',
 	saveTagURL:'module/tag/tagmanager/save',
@@ -42,6 +45,7 @@ TagManager={
 			this.deleteTag(selectedNode);
 			var tree = $(TagManager.treeNodeSelector).jstree(true);
 			tree.delete_node(selectedNode);
+			TagManager.application.modal.hide();
 
 		}.bind(this), function() {
 			TagManager.application.modal.hideConfirmBox();
@@ -62,10 +66,18 @@ TagManager={
 
 
 	showMoveNodeConfirmation: function(movedNode, destinationNode) {
-		TagManager.application.modal.showConfirmBox('Déplacer "'+movedNode.text+'" vers "'+destinationNode.text+'" ?', function() {
+
+		if(destinationNode.original.type.qname==TagManager.categoryQname) {
+			var confirm='Déplacer "'+movedNode.text+'" vers "'+destinationNode.text+'" ?';
+		}
+		else {
+			var confirm='Transformer "'+movedNode.text+'" en tant que synonyme de "'+destinationNode.text+'" ?';
+		}
+		TagManager.application.modal.showConfirmBox(confirm, function() {
 
 			var tree = $(TagManager.treeNodeSelector).jstree(true);
 			tree.move_node(movedNode, destinationNode);
+			TagManager.application.modal.hide();
 
 			$.ajax({
 				url: TagManager.moveTagURL,
@@ -169,7 +181,7 @@ TagManager={
 				'check_callback' : function(o, movedNode, destinationNode, i, extra) {
 					if(extra && extra.core && extra.origin) {
 
-						console.debug(extra);
+						//console.debug(extra);
 						//var tree = $(TagManager.treeNodeSelector).jstree(true);
 						//console.debug(tree.get_node(data.parent));
 						TagManager.showMoveNodeConfirmation(movedNode, destinationNode);
@@ -342,14 +354,12 @@ TagManager={
 		}
 
 
-		console.debug(data);
-
 		$.ajax({
 			method: 'post',
 			url: TagManager.saveTagURL,
 			data: data,
 			success: function(data) {
-				console.debug(data);
+				TagManager.application.modal.notification('Modifications enregistrées');
 			}
 		})
 	},
