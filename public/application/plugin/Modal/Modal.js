@@ -1,5 +1,7 @@
 Application.prototype.modal={
-	containerSelector: 'pmd-application-modal'
+	containerSelector: 'pmd-application-modal',
+
+	notificationContainerSelector:'pmd-notificationPopup-container'
 };
 
 
@@ -22,6 +24,28 @@ Application.prototype.modal.show=function(content) {
 
 Application.prototype.modal.hide=function() {
 	$('#'+this.containerSelector).modal('hide');
+}
+
+Application.prototype.modal.notification=function(content, duration) {
+
+	if(!document.getElementById(this.notificationContainerSelector)) {
+		$('body').append(
+			'<div id="'+this.notificationContainerSelector+'">'+
+			'	<h4 class="content modal-header alert alert-success"></h4>'+
+			'</div>'
+		);
+	}
+
+	if(!duration) {
+		duration=2500;
+	}
+
+	$('#'+this.notificationContainerSelector).find('.content').html(content);
+	$('#'+this.notificationContainerSelector).addClass('active');
+	setTimeout(function() {
+		$('#'+this.notificationContainerSelector).removeClass('active');
+	}.bind(this), duration)
+
 }
 
 Application.prototype.modal.alert=function(content) {

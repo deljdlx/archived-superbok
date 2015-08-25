@@ -54,6 +54,7 @@ TagManager={
 			url: this.deleteTagURL,
 			data: {tagId:tag.id},
 			success: function(data) {
+				TagManager.application.modal.notification('Le tag a été supprimé');
 			}
 		})
 	},

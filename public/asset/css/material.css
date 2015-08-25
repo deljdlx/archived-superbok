@@ -86,27 +86,7 @@ html, body {
   /*max-width: 1080px;*/
 }
 
-.demo-charts {
-  align-items: center;
-}
-.demo-chart:nth-child(1) {
-  color: #ACEC00;
-}
-.demo-chart:nth-child(2) {
-  color: #00BBD6;
-}
-.demo-chart:nth-child(3) {
-  color: #BA65C9;
-}
-.demo-chart:nth-child(4) {
-  color: #EF3C79;
-}
-.demo-graphs {
-  padding: 16px 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
+
 /* TODO: Find a proper solution to have the graphs
  * not float around outside their container in IE10/11.
  * Using a browserhacks.com solution for now.
@@ -143,12 +123,7 @@ _:-ms-input-placeholder, :root .demo-graph {
 .demo-cards h3 {
   font-size: 1em;
 }
-.demo-updates .mdl-card__title {
-  min-height: 100px;
-  background-image: url('images/dog.png');
-  background-position: 90% 100%;
-  background-repeat: no-repeat;
-}
+
 .demo-cards .mdl-card__actions a {
   color: #00BCD4;
   text-decoration: none;

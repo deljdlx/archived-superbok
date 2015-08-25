@@ -87,11 +87,11 @@ class TagTypeManager extends Controller
 		return $tagCategory->getValues();
 	}
 
-	public function update($nodeId, $values, $json) {
+	public function updateInheritableAttributes($nodeId, $json='', $values=null) {
 
 		$tagCategory=new Type($this->getDataSource());
 		$tagCategory->loadById($nodeId);
-		$tagCategory->setValue('data', json_encode($values, JSON_PRETTY_PRINT));
+		$tagCategory->setValue('data', $json);
 		$tagCategory->update();
 
 

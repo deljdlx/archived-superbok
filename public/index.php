@@ -78,7 +78,10 @@ include('../index.php');
 
     <script src="application/Application.js"></script>
     <script src="application/Module.js"></script>
-    <script src="application/plugin/Modal.js"></script>
+
+
+	<link rel="stylesheet" href="application/plugin/Modal/style.css"></link>
+    <script src="application/plugin/Modal/Modal.js"></script>
 
 
 
@@ -108,77 +111,13 @@ include('../index.php');
 
 
 
-    <script>
-
-
-
-
-
-
-
-    </script>
-
-
 
 
 
     <script type="text/javascript">
-
-
-
-
         jQuery(function() {
-
-
             var backoffice=new Application();
             backoffice.start();
-            //backoffice.loadModule('tag');
-            //TagTypeManager.initialize();
-
-
-            /*
-
-            $.jstree.plugins.foo = function (options, parent) {
-
-
-                this.redraw_node = function(obj, deep, callback, force_draw) {
-
-
-
-                    var span = document.createElement('SPAN');
-                    var i, j, tmp = null, elm = null, org = 2;
-
-
-
-
-                    obj = parent.redraw_node.call(this, obj, deep, callback, force_draw);
-
-                    console.debug(obj);
-
-
-
-                    if(obj) {
-                        for(i = 0, j = obj.childNodes.length; i < j; i++) {
-                            if(obj.childNodes[i] && obj.childNodes[i].className && obj.childNodes[i].className.indexOf("jstree-anchor") !== -1) {
-                                tmp = obj.childNodes[i];
-                                break;
-                            }
-                        }
-                        if(tmp) {
-                            elm = span.cloneNode(true);
-                            elm.innerHTML = org + '. ';
-                            tmp.insertBefore(elm, tmp.childNodes[tmp.childNodes.length - 1]);
-                        }
-                    }
-                    return obj;
-                };
-            };
-            */
-
-
-
-
-
         });
     </script>
 
@@ -220,6 +159,7 @@ include('../index.php');
        .jstree-contextmenu {
            z-index:1000;
        }
+
 
 
 
@@ -370,21 +310,6 @@ include('../index.php');
 
 
 
-
-
-
-
-
-
-
-
-
-
-<script>
-
-
-
-</script>
 
 
 

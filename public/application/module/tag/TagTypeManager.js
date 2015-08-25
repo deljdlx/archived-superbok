@@ -1,6 +1,6 @@
 TagTypeManager={
 	dataSourceURL:'module/tag/tagtypemanager/gettree',
-	updateURL:'module/tag/tagtypemanager/update',
+	updateURL:'module/tag/tagtypemanager/updateInheritableAttributes',
 	getNodeInfoURL:'module/tag/tagtypemanager/getNodeInfo',
 
 
@@ -19,8 +19,6 @@ TagTypeManager={
 
 		TagTypeManager.formPanelContainer=document.querySelector(TagTypeManager.formPanelContainerSelector);
 
-		console.debug(TagTypeManager.formPanelContainer);
-
 
 		TagTypeManager.initializeTree();
 		TagTypeManager.initializeEditor();
@@ -38,7 +36,7 @@ TagTypeManager={
 						'icon': 'fa fa-plus',
 						"action": function (obj) {
 							$node = tree.create_node($node, {
-								text:"caca",
+								text:"Nouveau type",
 								icon :'fa fa-tag'
 							});
 							tree.edit($node);
@@ -151,11 +149,11 @@ TagTypeManager={
 				url: TagTypeManager.updateURL,
 				data: {
 					nodeId: nodeId.pop(),
-					attributesValues:attributesValues,
-					attributesVauesJSON: attributeContent
+					attributesVauesJSON: attributeContent,
+					attributesValues:attributesValues
 				},
 				success: function(data) {
-					console.debug(data);
+					TagTypeManager.application.modal.notification('Modifications enregistrées');
 				}
 			})
 
