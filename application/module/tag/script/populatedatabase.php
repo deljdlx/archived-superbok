@@ -123,14 +123,16 @@ $tagDataSource->query($query);
 $tagTypeTree=new Type($tagDataSource);
 $rootTypeNode=$tagTypeTree->getRoot();
 
-$rootTypeNode->setValue('data','{
+$rootTypeNode->setValue('data','
+{
     "attributes": {
         "title": {
             "caption": "Titre",
             "mandatory": false,
             "type": "text",
             "default": null,
-            "enable": true
+            "enable": true,
+            "scopes":[]
         },
         "description": {
             "caption": "Description",
@@ -138,11 +140,13 @@ $rootTypeNode->setValue('data','{
             "type": "text",
             "subtype": "html",
             "default": null,
-            "enable": true
+            "enable": true,
+            "scopes":[]
         }
     },
     "rules": []
-}');
+}
+');
 $rootTypeNode->update();
 
 

@@ -107,21 +107,11 @@ class TagTypeManager extends Controller
 
 
         $tagCategory->commit();
+        $tagCategory->buildTree(null, true);
 
         return $tagCategory->getValues();
 
 
-        $deletedChildren=$tagCategory->deleteChildren();
-
-
-        foreach ($deletedChildren as $child) {
-            $child->deleteTags();
-        }
-
-        $tagCategory->deleteTags();
-        $tagCategory->delete();
-
-        return $tagCategory->getValues();
 
     }
 

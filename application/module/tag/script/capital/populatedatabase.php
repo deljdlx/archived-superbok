@@ -69,7 +69,8 @@ $query="
     'company',
     'Entreprise',
     NOW(),
-    '".'{
+    '".
+'{
     "attributes": {
         "isin": {
             "caption" : "Code ISIN",
@@ -90,21 +91,24 @@ $query="
             "mandatory": false,
             "type": "integer",
             "default": null,
-            "enable": true
+            "enable": true,
+            "scopes":["system"]
         },
         "sixId": {
             "caption" : "Six ID",
             "mandatory": false,
             "type": "text",
             "default": null,
-            "enable": true
+            "enable": true,
+            "scopes":["system"]
         },
         "cofisemId": {
             "caption" : "Cofisem ID",
             "mandatory": false,
             "type": "integer",
             "default": null,
-            "enable": true
+            "enable": true,
+            "scopes":["system"]
         }
     },
     "rules": []

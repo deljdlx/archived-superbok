@@ -262,11 +262,22 @@ Trait Tree
         $this->query($query);
     }
 
-    public function buildTree($idNode=1, $reset=false) {
+    public function buildTree($idNode=null, $reset=false) {
 
         if($reset) {
             $this->reset();
         }
+
+        if($idNode===null) {
+            $query="
+                SELECT ".$this->getPrimaryKeyFieldName()." id FROM ".static::getTableName()."
+                WHERE ".$this->getParentIdFieldName()." IS NULL
+            ";
+            $idNode=$this->queryAndFetchValue($query);
+        }
+
+
+
 
         $autocommitState=$this->autocommit();
 

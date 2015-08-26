@@ -20,7 +20,7 @@ php cronjob.php application/module/tag/script/capital/company/setsixid.php
 
 php cronjob.php application/module/tag/script/capital/migratepagehubassociation.php
 php cronjob.php application/module/tag/script/capital/associatetag.php
-php cronjob.php application/module/tag/script/capital/migratepagerelatedtag.php
+php cronjob.php application/module/tag/script/capital/migraterelatedtag.php
 
 
 

@@ -28,7 +28,13 @@ class AttributeRenderer
 
             foreach ($this->attribute as $name=>$value) {
 
-                $buffer.=' data-'.$name.'="'.htmlentities($value).'"';
+                if(is_scalar($value)) {
+                    $buffer.=' data-'.$name.'="'.htmlentities($value).'"';
+                }
+                else {
+                    $buffer.=' data-'.$name.'="'.htmlentities(json_encode($value)).'"';
+                }
+
             }
 
 

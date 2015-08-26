@@ -270,8 +270,15 @@ abstract class  DatabaseElement
             $this->source=$this->getDefaultSource();
         }
         return $this->source->queryAndFetchOne($query);
-
     }
+
+    public function queryAndFetchValue($query) {
+        if(!$this->source) {
+            $this->source=$this->getDefaultSource();
+        }
+        return $this->source->queryAndFetchValue($query);
+    }
+
 
     public function getLastInsertId() {
         if(!$this->source) {

@@ -46,9 +46,17 @@ class Datasource
         if($statement) {
             $returnValues=$statement->fetch_assoc();
         }
-
-
         return $returnValues;
+    }
+
+    public function queryAndFetchValue($query) {
+        $row=$this->queryAndFetchOne($query);
+        if(!empty($row)) {
+            return reset($row);
+        }
+        else {
+            return false;
+        }
     }
 
 

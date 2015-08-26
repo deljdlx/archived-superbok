@@ -91,7 +91,7 @@ class TagManager extends Controller
         return $nodes;
     }
 
-    public function getForm($nodeId) {
+    public function getForm($nodeId, $scopes=array()) {
 
         $tag=new Tag($this->getDataSource());
         $tag->loadById((int) $nodeId);
@@ -111,8 +111,19 @@ class TagManager extends Controller
 
 
         $inputs=array();
+
+        $scopes=array('system');
+
+
         foreach ($values['attributes'] as $name=>&$attribute) {
 
+            if(isset($attribute['scopes']) && !empty($attribute['scopes'])) {
+                $validatedScopes=array_intersect($attribute['scopes'], $scopes);
+
+                if(empty($validatedScopes)) {
+                    continue;
+                }
+            }
 
             $renderer=new AttributeRenderer($name, $attribute);
             $inputs[$name]=$renderer->toWebComponent('pmd-form');
