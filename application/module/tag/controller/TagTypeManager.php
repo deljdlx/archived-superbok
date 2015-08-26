@@ -21,95 +21,43 @@ class TagTypeManager extends Controller
 
         $tree=$tree->getRoot();
 
-
-        $children=$tree->getChildren(true, true, function($node, $children) {
-            $data=array(
-                'node'=>$node->getValues(),
-                'children'=>array()
-            );
-            foreach ($children as $child) {
-                $data['children'][$child->getId()]=$child->getValues();
+        $render=function($children) use($tree, &$render) {
+            $icon='fa fa-tag';
+            $nodes=array();
+            if(is_array($children)) {
+                foreach ($children as $child) {
+                    $nodes[]=array(
+                        'id'=>$child->getId(),
+                        'text'=>''.$child->getValue('caption'),
+                        'children'=>$render($child->getChildren()),
+                        'data'=>$child->getValue('data'),
+                        'icon'=>$icon,
+                        'state'=>array(
+                            'opened'=>true
+                        )
+                       );
+                }
             }
-
-            return $data;
-
-
-
-        });
+            return $nodes;
+        };
 
 
-        echo '<pre id="' . __FILE__ . '-' . __LINE__ . '" style="border: solid 1px rgb(255,0,0); background-color:rgb(255,255,255)">';
-        echo '<div style="background-color:rgba(100,100,100,1); color: rgba(255,255,255,1)">' . __FILE__ . '@' . __LINE__ . '</div>';
-        print_r($children);
-        echo '</pre>';
+        $nodes=array();
 
 
 
         $icon='fa fa-tag';
-        $childrenExists=$tree->childrenExists();
-        $rootNode=array(
+        $nodes[]=array(
             'id'=>$tree->getId(),
             'text'=>''.$tree->getValue('caption'),
-            'children'=>$childrenExists,
+            'children'=>$render($tree->getChildren()),
             'data'=>$tree->getValue('data'),
-            'icon'=>$icon
+            'icon'=>$icon,
+            'state'=>array(
+                'opened'=>true
+            )
         );
-
-        $nodes[strtolower($tree->getValue('caption'))]=$rootNode;
-
-
-
-        die('EXIT '.__FILE__.'@'.__LINE__);
-
-
-        $nodes=array();
-
-
-        $nodes=array();
-
-        foreach ($children as $child) {
-
-            $childrenExists=$child->childrenExists();
-
-            if(!$child->getValue('mastertag_id')) {
-
-
-                $icon='fa fa-tag';
-
-
-                $nodes[strtolower($child->getValue('caption'))]=array(
-                    'id'=>$child->getId(),
-                    'text'=>''.$child->getValue('caption'),
-                    'children'=>$childrenExists,
-                    'data'=>$child->getValue('data'),
-                    'icon'=>$icon
-                );
-            }
-
-
-        }
-
-        ksort($nodes);
-        $nodes=array_values($nodes);
-
-        if($rootNode) {
-            $icon='fa fa-tag';
-            $data=array(
-                'id'=>$rootNode->getId(),
-                'text'=>$rootNode->getValue('caption'),
-                'state'=>array(
-                    'opened'=>true,
-                ),
-                'data'=>$rootNode->getValue('data'),
-                'icon'=>$icon,
-                'children'=>$nodes,
-            );
-
-            return $data;
-        }
-        else {
-            return $nodes;
-        }
+        return $nodes;
     }
 
 	public function getNodeInfo($nodeId) {
@@ -146,6 +94,38 @@ class TagTypeManager extends Controller
 
         return $tagCategory->getValues();
     }
+
+
+    public function delete($nodeId) {
+
+        $tagCategory=new Type($this->getDataSource());
+
+        $tagCategory->autocommit(false);
+        $tagCategory->loadById($nodeId);
+
+        $tagCategory->purge();
+
+
+        $tagCategory->commit();
+
+        return $tagCategory->getValues();
+
+
+        $deletedChildren=$tagCategory->deleteChildren();
+
+
+        foreach ($deletedChildren as $child) {
+            $child->deleteTags();
+        }
+
+        $tagCategory->deleteTags();
+        $tagCategory->delete();
+
+        return $tagCategory->getValues();
+
+    }
+
+
 
 }
 

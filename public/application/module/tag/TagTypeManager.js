@@ -3,6 +3,7 @@ TagTypeManager={
 	updateURL:'module/tag/tagtypemanager/updateInheritableAttributes',
 	getNodeInfoURL:'module/tag/tagtypemanager/getNodeInfo',
 	createURL: 'module/tag/tagtypemanager/create',
+	deleteURL: 'module/tag/tagtypemanager/delete',
 
 
 	treeNodeSelector:'#tree',
@@ -14,6 +15,8 @@ TagTypeManager={
 
 	defaultNewTypeName: 'Nouveau type',
 	createNewNodeHandler:null,
+
+	confirmationCheckWord: 'oui',
 
 
 	initialize:function() {
@@ -127,18 +130,65 @@ TagTypeManager={
 		};
 	},
 
+	checkRemoveNodeConfirmation:function() {
+		var confirmation=jQuery('input.deleteTypeConfirmation').val();
+
+
+		console.debug(TagTypeManager.confirmationCheckWord);
+
+		if(confirmation!=TagTypeManager.confirmationCheckWord) {
+			jQuery('.deleteTypeConfirmation').addClass('error');
+			return false;
+		}
+		else {
+			jQuery('.deleteTypeConfirmation').removeClass('error');
+			return true
+		}
+	},
+
 	showRemoveNodeConfirmation: function(selectedNode) {
-		TagTypeManager.application.modal.showConfirmBox('Supprimer le type "'+selectedNode.text+'" ? <div><label>Tappez "oui" pour confirmer <input class="deleteTypeConfirmation"/></label></div>', function() {
+		TagTypeManager.application.modal.showConfirmBox(
+			'Supprimer le type "'+selectedNode.text+'" ? <div>'+
+				'<form class="deleteTypeConfirmation">'+
+					'<label>Tappez "'+TagTypeManager.confirmationCheckWord+'" pour confirmer <input class="deleteTypeConfirmation"/></label>'+
+				'</form></div>',
+			function() {
 
+				if(TagTypeManager.checkRemoveNodeConfirmation()) {
+					TagTypeManager.application.modal.hide();
+					TagTypeManager.deleteNode(selectedNode)
+				}
 
+			}.bind(this), function() {
 
-			//this.deleteTag(selectedNode);
-			//var tree = $(TagManager.TagTypeManager).jstree(true);
-			//tree.delete_node(selectedNode);
-
-		}.bind(this), function() {
-			//TagManager.application.modal.hideConfirmBox();
+			}, function(popup) {
+				document.querySelector('input.deleteTypeConfirmation').focus();
+				$('form.deleteTypeConfirmation').submit(function() {
+					if(TagTypeManager.checkRemoveNodeConfirmation()) {
+						TagTypeManager.application.modal.hide();
+						TagTypeManager.deleteNode(selectedNode);
+					}
+					return false;
+				})
 		});
+	},
+
+
+	deleteNode:function(selectedNode) {
+		var tree = TagTypeManager.tree.jstree(true);
+		tree.delete_node(selectedNode);
+		TagTypeManager.application.ajax({
+			'method': 'post',
+			url: TagTypeManager.deleteURL,
+			data: {
+				'nodeId': selectedNode.id
+			},
+			success: function(data){
+				TagTypeManager.application.modal.notification('Le type a bien été supprimé');
+			}
+		})
+
+
 	},
 
 
@@ -186,7 +236,7 @@ TagTypeManager={
 					}
 				}
 			},
-			"plugins" : ["contextmenu"]
+			"plugins" : ["contextmenu", "sort"]
 		});
 
 		TagTypeManager.treeManager=$(TagTypeManager.treeNodeSelector).jstree(true);

@@ -128,13 +128,63 @@ class Tag extends DatabaseElement
 
 
     public function update() {
-
         $values=json_encode($this->getInheritedAttributesValues(), JSON_PRETTY_PRINT);
-
         $this->setValue('data', $values);
         parent::update();
         return $this;
     }
+
+
+    public function delete() {
+        $synonymes=$this->deleteSynonymes();
+        $associations=$this->deleteAssociation();
+        parent::delete();
+
+        return array(
+            'synonymes'=>$synonymes,
+            'associations'=>$associations
+        );
+    }
+
+    public function deleteAssociation() {
+        //suppression de toutes les associations
+        $query="
+            SELECT * FROM ".Association::getTableName()." association
+            WHERE tag_id='".$this->escape($this->getId())."'
+        ";
+        $rows=$this->queryAndFetch($query);
+
+        foreach ($rows as $values) {
+            $association=new Association($this->getSource());
+            $association->setValues($values);
+            $association->delete();
+        }
+
+        return $this;
+    }
+
+
+    public function deleteSynonymes() {
+        $query="
+            SELECT *
+            FROM ".Tag::getTableName()." tag
+            WHERE mastertag_id='".$this->escape($this->getId())."'
+        ";
+
+        $rows=$this->queryAndFetch($query);
+        foreach ($rows as $values) {
+            $tag=new Tag($this->getSource());
+            $tag->setValues($values);
+            $tag->delete();
+        }
+        return $this;
+    }
+
+
+
+
+
+
 
 
     public function loadById($id) {

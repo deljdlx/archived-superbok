@@ -53,47 +53,20 @@ Trait Tree
         return $instance;
     }
 
-    public function getChildren($all=false, $keepHierarchie=false) {
+    public function getChildren($all=false) {
 
         if($all) {
             if($this->allChildren===null) {
                 $this->loadChildren($all);
             }
-
-
-            if(!$keepHierarchie) {
-                return $this->allChildren;
-            }
-            else {
-                $nodes=$this->allChildren;
-
-                $structure=array();
-                foreach ($nodes as $child) {
-                    if($child->getValue($this->getParentIdFieldName())==$this->getId()) {
-
-                            $structure[$child->getId()]=array(
-                                'node'=>$child,
-                                'children'=>$child->getChildren(true, true)
-                            );
-
-                    }
-                }
-
-                return $structure;
-
-            }
+            return $this->allChildren;
         }
-
-        if($this->children===null) {
-            $this->loadChildren($all);
-        }
-
-        if(!$keepHierarchie) {
+        else {
+            if($this->children===null) {
+                $this->loadChildren($all);
+            }
             return $this->children;
         }
-
-
-
     }
 
 
@@ -221,6 +194,15 @@ Trait Tree
         return $this;
     }
 
+
+
+    public function deleteChildren() {
+        $children=$this->getChildren(true);
+        foreach ($children as $child) {
+            $child->delete();
+        }
+        return $children;
+    }
 
 
 

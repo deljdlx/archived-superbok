@@ -26,7 +26,7 @@ include('../index.php');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Material Design Lite</title>
+    <title>BO Capital</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -62,7 +62,9 @@ include('../index.php');
 
     <link rel="stylesheet" href="vendor/mdl/material.min.css"></link>
     <script src="vendor/mdl/material.min.js"></script>
+
     <link rel="stylesheet" href="asset/css/material.css"></link>
+    <link rel="stylesheet" href="asset/css/application.css"></link>
 
 
 

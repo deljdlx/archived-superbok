@@ -63,7 +63,7 @@ Application.prototype.modal.alert=function(content) {
 	);
 }
 
-Application.prototype.modal.showConfirmBox=function(content, callbackValidate, callbackCancel) {
+Application.prototype.modal.showConfirmBox=function(content, callbackValidate, callbackCancel, onDisplay) {
 
 	this.show(
 		'			<div class="modal-header alert alert-info">'+
@@ -79,7 +79,16 @@ Application.prototype.modal.showConfirmBox=function(content, callbackValidate, c
 		'			</div>'
 	);
 
-	$(this.container).find('button.confirm').click(callbackValidate)
+	if(onDisplay) {
+		setTimeout(function() {
+			onDisplay(this);
+		}.bind(this), 500);
+	}
+
+
+	$(this.container).find('button.confirm').click(callbackValidate);
+
+
 
 
 }
