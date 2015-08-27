@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Placeholder</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="js/combined.min.css" />
+	<link rel="stylesheet" href="js/redactor.css" />
+
+
+
+
+	<script src="webcomponents.min.js"></script>
+
+	<script src="js/combined.min.js"></script>
+	<script src="js/redactor.min.js"></script>
+	<script src="js/advanced.js"></script>
+	
+	
+	
+
+<script type="text/javascript">
+</script>
+
+</head>
+<body>
+
+		
+<script type="text/javascript">
+$(function()
+{
+	$('#redactor-1').redactor(
+	{
+		placeholder: 'Add comment...',
+		imageUpload: 'upload.php',
+		plugins: ['advanced']
+	});
+	
+
+	
+});
+</script>
+
+
+<p><textarea id="redactor-1" name="content" placeholder="Add comment..."></textarea></p>
+</body>
+
+<script src="component/00-flipper/component.js"></script>
+
+
+
+</html>

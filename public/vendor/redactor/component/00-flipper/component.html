@@ -1,0 +1,76 @@
+<template id="eb-flipper">
+<style>
+
+
+.flipContainer {
+	perspective: 1000;
+	position: relative;
+	display:inline-block;
+}
+
+
+.flipper {
+	width: 250px;
+	height: 250px;
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+
+
+.flipper.flipped {
+	transform: rotateY(180deg) rotateX(360deg);
+	transform-origin: 50% 0 0;
+}
+
+
+
+
+.flipSide {
+	backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	
+	box-sizing: border-box;
+
+
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
+	overflow: hidden;
+
+	transition: all 1s;
+	border: solid 10px rgba(100,100,100, 0.5);
+	font-size:30px;
+	text-align: center;
+	padding-top: 100px;
+}
+
+
+.front {
+	background-color:#CCC;
+	transform: rotateY(0deg);
+}
+
+
+.back {
+	transform: rotateY(180deg);
+	background-color:#AFA;
+}
+</style>
+
+
+<div class="flipContainer">
+	<div class="flipper">
+		<div class=" front flipSide"><content select=".front"></content></div>
+		<div class="back flipSide"><content select=".back"></content></div>
+		</div>
+	</div>
+	</body>
+</div>
+
+
+
+</template>
